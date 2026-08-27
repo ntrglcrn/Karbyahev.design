@@ -13,15 +13,15 @@ const lines = [
 ];
 
 const dotField = {
-  desktop: { step: 16, dotSize: 1.25, baseAlpha: 0.075, maxAlpha: 0.28, frameTime: 42 },
-  mobile: { step: 20, dotSize: 1, baseAlpha: 0.055, maxAlpha: 0.21, frameTime: 50 },
-  cleanZoneStrength: 0.45,
+  desktop: { step: 10, dotSize: 1.75, baseAlpha: 0.28, maxAlpha: 0.85, frameTime: 32 },
+  mobile: { step: 14, dotSize: 1.5, baseAlpha: 0.22, maxAlpha: 0.7, frameTime: 42 },
+  cleanZoneStrength: 0.12,
 };
 
 const fields = [
-  { x: 0.14, y: 0.22, radius: 0.48, speed: 0.00006, phase: 0.4, intensity: 0.8 },
-  { x: 0.8, y: 0.72, radius: 0.38, speed: 0.00008, phase: 2.1, intensity: 1 },
-  { x: 0.62, y: 0.14, radius: 0.28, speed: 0.00005, phase: 4.3, intensity: 0.7 },
+  { x: 0.14, y: 0.22, radius: 0.5, speed: 0.00012, phase: 0.4, intensity: 1 },
+  { x: 0.8, y: 0.72, radius: 0.42, speed: 0.00016, phase: 2.1, intensity: 1.2 },
+  { x: 0.62, y: 0.14, radius: 0.32, speed: 0.0001, phase: 4.3, intensity: 0.9 },
 ];
 
 export default function Hero() {
@@ -87,8 +87,8 @@ export default function Hero() {
       for (let index = 0; index < fieldCount; index += 1) {
         const field = fields[index];
         const phase = time * field.speed + field.phase + scrollProgress * 0.2;
-        fieldX[index] = width * (field.x + Math.sin(phase) * 0.16);
-        fieldY[index] = height * (field.y + Math.cos(phase * 0.83) * 0.14);
+        fieldX[index] = width * (field.x + Math.sin(phase) * 0.22);
+        fieldY[index] = height * (field.y + Math.cos(phase * 0.83) * 0.2);
       }
 
       context.clearRect(0, 0, width, height);
@@ -103,8 +103,8 @@ export default function Hero() {
         const x = grid[index];
         const y = grid[index + 1];
         const alpha = dotAlpha(x, y, time, scrollProgress);
-        if (alpha > maxAlpha * 0.7 && Math.sin(x * 0.19 + y * 0.11) > 0.985) {
-          context.globalAlpha = alpha * 0.65;
+        if (alpha > maxAlpha * 0.55 && Math.sin(x * 0.19 + y * 0.11) > 0.94) {
+          context.globalAlpha = alpha * 0.9;
           context.fillRect(x, y, dotSize, dotSize);
         }
       }
