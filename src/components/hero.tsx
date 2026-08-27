@@ -3,12 +3,12 @@
 import { useEffect, useRef, type ReactNode } from "react";
 
 const lines = [
-  { text: "PRODUCT", initialClass: "ml-0", travelX: -0.015 },
-  { text: "DESIGNER", initialClass: "ml-[5%] md:ml-[10%] lg:ml-[18%]", travelX: -0.09 },
-  { text: "BUILDING", initialClass: "ml-[1%] md:ml-0 lg:ml-0", travelX: 0.16 },
-  { text: "DIGITAL", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: -0.2, travelY: -5, scaleDelta: 0.006 },
-  { text: "COMMERCE", initialClass: "ml-0 md:-ml-[4%] lg:ml-0", travelX: 0.075, travelY: 3 },
-  { text: "& SAAS", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: 0.11, travelY: 2, scaleDelta: 0.002 },
+  { text: "PRODUCT", initialClass: "ml-0", travelX: -0.015, pointerX: 2, pointerY: -1 },
+  { text: "DESIGNER", initialClass: "ml-[5%] md:ml-[10%] lg:ml-[18%]", travelX: -0.09, pointerX: 8, pointerY: 4 },
+  { text: "BUILDING", initialClass: "ml-[1%] md:ml-0 lg:ml-0", travelX: 0.16, pointerX: -10, pointerY: 5 },
+  { text: "DIGITAL", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: -0.2, travelY: -5, scaleDelta: 0.006, pointerX: 6, pointerY: -4 },
+  { text: "COMMERCE", initialClass: "ml-0 md:-ml-[4%] lg:ml-0", travelX: 0.075, travelY: 3, pointerX: -7, pointerY: 3 },
+  { text: "& SAAS", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: 0.11, travelY: 2, scaleDelta: 0.002, pointerX: 9, pointerY: -3 },
 
 ];
 
@@ -32,6 +32,7 @@ export default function Hero({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const coarsePointer = window.matchMedia("(pointer: coarse)");
     const fieldX = new Float32Array(fields.length);
     const fieldY = new Float32Array(fields.length);
     const fieldRadiusSquared = new Float32Array(fields.length);
@@ -52,6 +53,24 @@ export default function Hero({ children }: { children: ReactNode }) {
     let accent = "#c8ff00";
     let mobile = false;
     let fieldCount = fields.length;
+    let pointerTargetX = 0;
+    let pointerTargetY = 0;
+    let pointerCurrentX = 0;
+    let pointerCurrentY = 0;
+    let pointerStrength = 0;
+    let pointerActive = false;
+    let pointerEnabled = false;
+
+    const resetPointer = () => {
+      pointerActive = false;
+      pointerTargetX = 0;
+      pointerTargetY = 0;
+    };
+
+    const updatePointerAvailability = () => {
+      pointerEnabled = !mobile && !coarsePointer.matches && !reduceMotion.matches;
+      if (!pointerEnabled) resetPointer();
+    };
 
     const clearTransforms = () => {
       text.current.forEach((line) => {
@@ -106,18 +125,35 @@ export default function Hero({ children }: { children: ReactNode }) {
 
       context.clearRect(0, 0, width, height);
       context.fillStyle = foreground;
+      const pointerX = width * (pointerCurrentX + 1) * 0.5;
+      const pointerY = height * (pointerCurrentY + 1) * 0.5;
+      const pointerRadius = 220;
+      const pointerRadiusSquared = pointerRadius * pointerRadius;
       for (let index = 0; index < grid.length; index += 2) {
         const x = grid[index];
         const y = grid[index + 1];
-        const alpha = dotAlpha(x, y, time, scrollProgress);
-        if (alpha > maxAlpha * 0.72 && Math.sin(x * 0.19 + y * 0.11) > 0.985) {
+        let renderX = x;
+        let renderY = y;
+        let pointerInfluence = 0;
+        const pointerDeltaX = x - pointerX;
+        const pointerDeltaY = y - pointerY;
+        const pointerDistanceSquared = pointerDeltaX * pointerDeltaX + pointerDeltaY * pointerDeltaY;
+        if (pointerStrength && pointerDistanceSquared < pointerRadiusSquared) {
+          pointerInfluence = (1 - pointerDistanceSquared / pointerRadiusSquared) ** 2 * pointerStrength;
+          const inverseDistance = 1 / Math.sqrt(pointerDistanceSquared || 1);
+          const asymmetry = Math.sin(x * 0.021 + y * 0.017 + time * 0.001) * 0.22;
+          renderX += (pointerDeltaX * inverseDistance + pointerCurrentX * (0.24 + asymmetry)) * pointerInfluence * 9;
+          renderY += (pointerDeltaY * inverseDistance + pointerCurrentY * (0.24 - asymmetry)) * pointerInfluence * 9;
+        }
+        const alpha = dotAlpha(x, y, time, scrollProgress) * (1 + pointerInfluence * 0.2);
+        if (alpha > maxAlpha * 0.72 && Math.sin(x * 0.19 + y * 0.11) > 0.985 - pointerInfluence * 0.012) {
           context.fillStyle = accent;
           context.globalAlpha = alpha * 0.55;
-          context.fillRect(x, y, dotSize, dotSize);
+          context.fillRect(renderX, renderY, dotSize, dotSize);
           context.fillStyle = foreground;
         } else {
           context.globalAlpha = alpha;
-          context.fillRect(x, y, dotSize, dotSize);
+          context.fillRect(renderX, renderY, dotSize, dotSize);
         }
       }
       context.globalAlpha = 1;
@@ -128,6 +164,7 @@ export default function Hero({ children }: { children: ReactNode }) {
       if (!element) return;
       const rect = element.getBoundingClientRect();
       mobile = window.innerWidth < 640;
+      updatePointerAvailability();
       fieldCount = mobile ? 2 : fields.length;
       const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
 
@@ -177,14 +214,17 @@ export default function Hero({ children }: { children: ReactNode }) {
       }
 
       current += (target - current) * 0.12;
+      pointerCurrentX += (pointerTargetX - pointerCurrentX) * 0.08;
+      pointerCurrentY += (pointerTargetY - pointerCurrentY) * 0.08;
+      pointerStrength += ((pointerActive ? 1 : 0) - pointerStrength) * 0.08;
       const travelScale = window.innerWidth < 640 ? 0.28 : window.innerWidth < 1024 ? 0.62 : 1;
       const progress = current * (2 - current);
       const handoff = Math.min(Math.max((current - 0.62) / 0.38, 0), 1);
 
-      lines.forEach(({ travelX, travelY = 0, scaleDelta = 0 }, index) => {
+      lines.forEach(({ travelX, travelY = 0, scaleDelta = 0, pointerX = 0, pointerY = 0 }, index) => {
         const line = text.current[index];
         if (line) {
-          line.style.transform = `translate3d(${progress * travelX * window.innerWidth * travelScale}px, ${progress * travelY}px, 0) scale(${1 + progress * scaleDelta})`;
+          line.style.transform = `translate3d(${progress * travelX * window.innerWidth * travelScale + pointerCurrentX * pointerX * pointerStrength}px, ${progress * travelY + pointerCurrentY * pointerY * pointerStrength}px, 0) scale(${1 + progress * scaleDelta})`;
         }
       });
 
@@ -217,6 +257,7 @@ export default function Hero({ children }: { children: ReactNode }) {
     });
     const handleVisibility = () => {
       if (document.hidden) cancelAnimationFrame(frame);
+      resetPointer();
       frame = 0;
       if (!document.hidden) schedule();
     };
@@ -224,21 +265,47 @@ export default function Hero({ children }: { children: ReactNode }) {
       resizeCanvas();
       update();
     };
+    const handleMotionChange = () => {
+      updatePointerAvailability();
+      update();
+    };
+    const handlePointerMove = (event: PointerEvent) => {
+      const element = canvas.current;
+      if (!pointerEnabled || !element) return;
+      const rect = element.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) {
+        resetPointer();
+        return;
+      }
+      pointerTargetX = Math.min(Math.max((event.clientX - rect.left) / rect.width * 2 - 1, -1), 1);
+      pointerTargetY = Math.min(Math.max((event.clientY - rect.top) / rect.height * 2 - 1, -1), 1);
+      pointerActive = true;
+      schedule();
+    };
 
     resizeCanvas();
     update();
-    if (hero.current) observer.observe(hero.current);
+    const section = hero.current;
+    if (section) observer.observe(section);
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", handleResize);
+    window.addEventListener("blur", resetPointer);
     document.addEventListener("visibilitychange", handleVisibility);
-    reduceMotion.addEventListener("change", update);
+    reduceMotion.addEventListener("change", handleMotionChange);
+    coarsePointer.addEventListener("change", handleResize);
+    section?.addEventListener("pointermove", handlePointerMove, { passive: true });
+    section?.addEventListener("pointerleave", resetPointer);
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("blur", resetPointer);
       document.removeEventListener("visibilitychange", handleVisibility);
-      reduceMotion.removeEventListener("change", update);
+      reduceMotion.removeEventListener("change", handleMotionChange);
+      coarsePointer.removeEventListener("change", handleResize);
+      section?.removeEventListener("pointermove", handlePointerMove);
+      section?.removeEventListener("pointerleave", resetPointer);
     };
   }, []);
 
