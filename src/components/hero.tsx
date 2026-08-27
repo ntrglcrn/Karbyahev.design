@@ -28,7 +28,6 @@ export default function Hero() {
   const hero = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const composition = useRef<HTMLDivElement>(null);
-  const project = useRef<HTMLElement>(null);
   const text = useRef<Array<HTMLSpanElement | null>>([]);
 
   useEffect(() => {
@@ -59,7 +58,6 @@ export default function Hero() {
         if (line) line.style.transform = "";
       });
       if (composition.current) composition.current.style.transform = "";
-      if (project.current) project.current.style.transform = "";
       if (canvas.current) canvas.current.style.opacity = "";
     };
 
@@ -181,7 +179,7 @@ export default function Hero() {
       current += (target - current) * 0.12;
       const travelScale = window.innerWidth < 640 ? 0.28 : window.innerWidth < 1024 ? 0.62 : 1;
       const progress = current * (2 - current);
-      const handoff = Math.min(Math.max((progress - 0.68) / 0.32, 0), 1);
+      const handoff = Math.min(Math.max((current - 0.62) / 0.38, 0), 1);
 
       lines.forEach(({ travelX, travelY = 0, scaleDelta = 0 }, index) => {
         const line = text.current[index];
@@ -191,7 +189,6 @@ export default function Hero() {
       });
 
       if (composition.current) composition.current.style.transform = `translate3d(0, ${-handoff * 10}svh, 0)`;
-      if (project.current) project.current.style.transform = `translate3d(0, ${(1 - handoff) * 100}%, 0)`;
       if (canvas.current) canvas.current.style.opacity = `${1 - handoff * 0.65}`;
 
       if (time - lastDraw >= frameTime) {
@@ -246,7 +243,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={hero} className="relative h-[250svh] motion-reduce:h-auto">
+    <section ref={hero} className="relative motion-reduce:h-auto">
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden py-12 motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] motion-reduce:flex-col motion-reduce:items-stretch">
         <canvas ref={canvas} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />
         <div ref={composition} className="container relative z-10 w-full -translate-y-[3svh] will-change-transform motion-reduce:py-12">
@@ -268,11 +265,12 @@ export default function Hero() {
             ))}
           </h1>
         </div>
-        <article
-          ref={project}
-          className="absolute inset-0 z-20 flex h-full translate-y-full flex-col bg-[#f5f3ed] px-[var(--page-gutter)] pb-6 pt-5 text-[#1500e1] will-change-transform motion-reduce:static motion-reduce:h-auto motion-reduce:translate-y-0 sm:pb-8 sm:pt-6"
-          aria-labelledby="viled-title"
-        >
+      </div>
+      <div className="h-[167svh] motion-reduce:hidden" aria-hidden="true" />
+      <article
+        className="sticky top-0 z-20 flex h-[100svh] flex-col bg-[#f5f3ed] px-[var(--page-gutter)] pb-6 pt-5 text-[#1500e1] motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] sm:pb-8 sm:pt-6"
+        aria-labelledby="viled-title"
+      >
           <div className="grid grid-cols-2 border-t border-current pt-2 text-xs font-medium uppercase tracking-[0.18em] md:grid-cols-12">
             <span className="md:col-span-1">01</span>
             <span className="text-right md:col-start-12">2025—26</span>
@@ -285,15 +283,14 @@ export default function Hero() {
             <p className="mt-5 text-xs font-medium uppercase tracking-[0.18em] md:col-start-10 md:mt-3">Role — Product designer</p>
           </div>
           <div className="mt-auto pt-8 md:grid md:grid-cols-12 md:gap-x-6">
-            <div className="aspect-[16/8.5] min-h-[30svh] bg-[#d8d6d0] md:col-span-12 md:min-h-[46svh]" aria-label="Viled project media placeholder" role="img" />
+            <div className="h-[30svh] bg-[#d8d6d0] sm:h-[40svh] md:col-span-12 md:h-[46svh]" aria-label="Viled project media placeholder" role="img" />
           </div>
           <div className="mt-3 grid grid-cols-2 gap-3 border-t border-current pt-2 text-xs font-medium uppercase tracking-[0.18em] md:grid-cols-12">
             <span className="md:col-span-3">Product design</span>
             <span className="md:col-span-3">E-commerce</span>
             <span className="text-right md:col-span-3 md:text-left">Web / iOS / Android</span>
           </div>
-        </article>
-      </div>
+      </article>
     </section>
   );
 }
