@@ -13,9 +13,9 @@ const lines = [
 ];
 
 const dotField = {
-  desktop: { step: 16, dotSize: 1, baseAlpha: 0.045, maxAlpha: 0.2, frameTime: 42 },
-  mobile: { step: 20, dotSize: 0.8, baseAlpha: 0.035, maxAlpha: 0.15, frameTime: 50 },
-  cleanZoneStrength: 0.6,
+  desktop: { step: 16, dotSize: 1.25, baseAlpha: 0.075, maxAlpha: 0.28, frameTime: 42 },
+  mobile: { step: 20, dotSize: 1, baseAlpha: 0.055, maxAlpha: 0.21, frameTime: 50 },
+  cleanZoneStrength: 0.45,
 };
 
 const fields = [
