@@ -8,6 +8,8 @@ const lines = [
   { text: "Building", initialClass: "ml-[1%] md:ml-0 lg:-ml-[8%]", travelX: 0.16 },
   { text: "Digital", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: -0.2, travelY: -5, scaleDelta: 0.006 },
   { text: "Commerce", initialClass: "ml-0 md:-ml-[4%] lg:-ml-[14%]", travelX: 0.075, travelY: 3 },
+  { text: "& SaaS", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: 0.11, travelY: 2, scaleDelta: 0.002 },
+
 ];
 
 export default function Hero() {
@@ -76,11 +78,11 @@ export default function Hero() {
       <div className="sticky top-0 flex h-[100svh] items-center overflow-x-clip py-12">
         <div className="container w-full -translate-y-[3svh]">
           <p className="mb-8 text-xs font-medium uppercase tracking-[0.18em] text-accent sm:mb-12">
-            Almaty — Product Design
+            ALEXANDR KARBYSHEV
           </p>
           <h1
             className="flex flex-col text-[clamp(3.55rem,17vw,5.5rem)] font-bold leading-[0.88] tracking-[-0.075em] md:text-[clamp(4.8rem,11.3vw,10.8rem)] md:leading-[0.84]"
-            aria-label="Product Designer Building Digital Commerce"
+            aria-label="Product Designer Building Digital Commerce and SaaS"
           >
             {lines.map(({ text: line, initialClass, travelX, travelY, scaleDelta }, index) => (
               <span
