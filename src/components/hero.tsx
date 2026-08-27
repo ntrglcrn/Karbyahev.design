@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 const lines = [
   { text: "PRODUCT", initialClass: "ml-0", travelX: -0.015 },
@@ -24,7 +24,7 @@ const fields = [
   { x: 0.62, y: 0.14, radius: 0.32, speed: 0.0001, phase: 4.3, intensity: 0.9 },
 ];
 
-export default function Hero() {
+export default function Hero({ children }: { children: ReactNode }) {
   const hero = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const composition = useRef<HTMLDivElement>(null);
@@ -267,30 +267,7 @@ export default function Hero() {
         </div>
       </div>
       <div className="h-[167svh] motion-reduce:hidden" aria-hidden="true" />
-      <article
-        className="sticky top-0 z-20 flex h-[100svh] flex-col bg-[#f5f3ed] px-[var(--page-gutter)] pb-6 pt-5 text-[#1500e1] motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] sm:pb-8 sm:pt-6"
-        aria-labelledby="viled-title"
-      >
-          <div className="grid grid-cols-2 border-t border-current pt-2 text-xs font-medium uppercase tracking-[0.18em] md:grid-cols-12">
-            <span className="md:col-span-1">01</span>
-            <span className="text-right md:col-start-12">2025—26</span>
-          </div>
-          <div className="mt-[clamp(1.5rem,4vw,4rem)] md:grid md:grid-cols-12 md:gap-x-6">
-            <div className="md:col-span-8">
-              <h2 id="viled-title" className="[font-family:var(--font-arizona)] text-[clamp(4.5rem,14vw,13rem)] font-bold leading-[0.78] tracking-[-0.08em]">VILED</h2>
-              <p className="mt-3 [font-family:var(--font-arizona)] text-xl font-bold tracking-[-0.04em] sm:text-2xl">E-commerce ecosystem</p>
-            </div>
-            <p className="mt-5 text-xs font-medium uppercase tracking-[0.18em] md:col-start-10 md:mt-3">Role — Product designer</p>
-          </div>
-          <div className="mt-8 md:grid md:grid-cols-12 md:gap-x-6 md:mt-10">
-            <div className="h-[clamp(250px,32svh,320px)] bg-[#d8d6d0] md:col-span-12 md:h-[clamp(360px,48svh,620px)]" aria-label="Viled project media placeholder" role="img" />
-          </div>
-          <div className="mt-3 grid grid-cols-2 gap-3 border-t border-current pt-2 text-xs font-medium uppercase tracking-[0.18em] md:grid-cols-12">
-            <span className="md:col-span-3">Product design</span>
-            <span className="md:col-span-3">E-commerce</span>
-            <span className="text-right md:col-span-3 md:text-left">Web / iOS / Android</span>
-          </div>
-      </article>
+      {children}
     </section>
   );
 }
