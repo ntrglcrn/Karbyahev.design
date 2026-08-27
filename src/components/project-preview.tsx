@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type Project = {
   index: string;
   title: string;
@@ -13,7 +15,7 @@ export default function ProjectPreview({ project, media }: { project: Project; m
 
   return (
     <article
-      className="sticky top-0 z-20 flex h-[100svh] flex-col bg-[#f5f3ed] px-[var(--page-gutter)] pb-6 pt-5 text-[#1500e1] motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] sm:pb-8 sm:pt-6"
+      className="sticky top-0 z-20 flex min-h-[100svh] flex-col bg-[#f5f3ed] px-[var(--page-gutter)] pb-6 pt-5 text-[#1500e1] motion-reduce:static sm:pb-8 sm:pt-6 md:h-[100svh]"
       aria-labelledby={titleId}
     >
       <div className="grid grid-cols-2 border-t border-current pt-2 text-xs font-medium uppercase tracking-[0.18em] md:grid-cols-12">
@@ -27,10 +29,8 @@ export default function ProjectPreview({ project, media }: { project: Project; m
         </div>
         <p className="mt-5 text-xs font-medium uppercase tracking-[0.18em] md:col-start-10 md:mt-3">Role — {project.role}</p>
       </div>
-      <div className="mt-8 md:grid md:grid-cols-12 md:gap-x-6 md:mt-10">
-        <div className="h-[clamp(250px,32svh,320px)] bg-[#d8d6d0] md:col-span-12 md:h-[clamp(360px,48svh,620px)]" aria-hidden={!media}>
-          {media}
-        </div>
+      <div className="mt-6 min-h-[250px] flex-1 bg-[#d8d6d0] md:mt-8 md:min-h-0" aria-hidden={!media}>
+        {media}
       </div>
       <div className="mt-3 grid grid-cols-2 gap-3 border-t border-current pt-2 text-xs font-medium uppercase tracking-[0.18em] md:grid-cols-12">
         {project.categories.map((category) => <span className="md:col-span-3" key={category}>{category}</span>)}
@@ -39,4 +39,3 @@ export default function ProjectPreview({ project, media }: { project: Project; m
     </article>
   );
 }
-import type { ReactNode } from "react";
