@@ -3,12 +3,12 @@
 import { useEffect, useRef } from "react";
 
 const lines = [
-  { text: "Product", initialClass: "ml-0", travelX: -0.015 },
-  { text: "Designer", initialClass: "ml-[5%] md:ml-[10%] lg:ml-[18%]", travelX: -0.09 },
-  { text: "Building", initialClass: "ml-[1%] md:ml-0 lg:-ml-[8%]", travelX: 0.16 },
-  { text: "Digital", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: -0.2, travelY: -5, scaleDelta: 0.006 },
-  { text: "Commerce", initialClass: "ml-0 md:-ml-[4%] lg:-ml-[14%]", travelX: 0.075, travelY: 3 },
-  { text: "& SaaS", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: 0.11, travelY: 2, scaleDelta: 0.002 },
+  { text: "PRODUCT", initialClass: "ml-0", travelX: -0.015 },
+  { text: "DESIGNER", initialClass: "ml-[5%] md:ml-[10%] lg:ml-[18%]", travelX: -0.09 },
+  { text: "BUILDING", initialClass: "ml-[1%] md:ml-0 lg:ml-0", travelX: 0.16 },
+  { text: "DIGITAL", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: -0.2, travelY: -5, scaleDelta: 0.006 },
+  { text: "COMMERCE", initialClass: "ml-0 md:-ml-[4%] lg:ml-0", travelX: 0.075, travelY: 3 },
+  { text: "& SAAS", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: 0.11, travelY: 2, scaleDelta: 0.002 },
 
 ];
 
