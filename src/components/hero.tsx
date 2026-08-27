@@ -14,7 +14,7 @@ const lines = [
 
 const dotField = {
   desktop: { step: 14, dotSize: 1.4, baseAlpha: 0.12, maxAlpha: 0.55, frameTime: 32 },
-  mobile: { step: 18, dotSize: 1.2, baseAlpha: 0.1, maxAlpha: 0.45, frameTime: 42 },
+  mobile: { step: 18, dotSize: 1.2, baseAlpha: 0.09, maxAlpha: 0.42, frameTime: 42 },
   cleanZoneStrength: 0.3,
 };
 
@@ -33,6 +33,7 @@ export default function Hero() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const fieldX = new Float32Array(fields.length);
     const fieldY = new Float32Array(fields.length);
+    const fieldRadiusSquared = new Float32Array(fields.length);
     let frame = 0;
     let target = 0;
     let current = 0;
@@ -48,6 +49,8 @@ export default function Hero() {
     let lastDraw = 0;
     let foreground = "#fff";
     let accent = "#c8ff00";
+    let mobile = false;
+    let fieldCount = fields.length;
 
     const clearTransforms = () => {
       text.current.forEach((line) => {
@@ -56,23 +59,31 @@ export default function Hero() {
     };
 
     const dotAlpha = (x: number, y: number, time: number, scrollProgress: number) => {
+      const lowPhase = time * 0.00008 + scrollProgress * 0.08;
+      const warpedX = x
+        + Math.sin(y * 0.008 + lowPhase) * 34
+        + Math.cos((x + y) * 0.004 - lowPhase * 0.73) * 22;
+      const warpedY = y
+        + Math.cos(x * 0.007 - lowPhase * 0.89) * 30
+        + Math.sin((x - y) * 0.0045 + lowPhase * 0.61) * 18;
       let influence = 0;
-      const fieldCount = window.innerWidth < 640 ? 2 : fields.length;
 
       for (let index = 0; index < fieldCount; index += 1) {
         const field = fields[index];
-        const radius = field.radius * Math.min(width, height);
-        const distanceX = x - fieldX[index];
-        const distanceY = y - fieldY[index];
-        const falloff = 1 - (distanceX * distanceX + distanceY * distanceY) / (radius * radius);
+        const distanceX = warpedX - fieldX[index];
+        const distanceY = warpedY - fieldY[index];
+        const falloff = 1 - (distanceX * distanceX + distanceY * distanceY) / fieldRadiusSquared[index];
         if (falloff > 0) influence += falloff * falloff * field.intensity;
       }
 
-      const modulation = 0.78 + 0.22 * Math.sin(x * 0.018 + y * 0.013 + time * 0.00012 + scrollProgress * 0.6);
-      const activity = Math.min(1, influence * modulation);
-      const cleanX = (x - width * 0.52) / (width * (window.innerWidth < 640 ? 0.52 : 0.42));
-      const cleanY = (y - height * 0.49) / (height * (window.innerWidth < 640 ? 0.4 : 0.36));
-      const cleanDistance = Math.min(1, Math.sqrt(cleanX * cleanX + cleanY * cleanY));
+      const edge = 0.88 + 0.12
+        * Math.sin(warpedX * 0.032 + warpedY * 0.021 + time * 0.00017)
+        * Math.cos(warpedY * 0.027 - warpedX * 0.016 - time * 0.00011);
+      const activity = Math.min(1, influence * edge);
+      const cleanX = (warpedX - width * 0.52) / (width * (mobile ? 0.52 : 0.42));
+      const cleanY = (warpedY - height * 0.49) / (height * (mobile ? 0.4 : 0.36));
+      const cleanShape = Math.max(0.84, 1 + 0.1 * Math.sin(warpedX * 0.011 - warpedY * 0.009 + time * 0.00005));
+      const cleanDistance = Math.min(1, (cleanX * cleanX + cleanY * cleanY) / cleanShape);
       const cleanFalloff = cleanDistance * cleanDistance * (3 - 2 * cleanDistance);
 
       return (baseAlpha + activity * (maxAlpha - baseAlpha)) * (1 - dotField.cleanZoneStrength + dotField.cleanZoneStrength * cleanFalloff);
@@ -83,7 +94,6 @@ export default function Hero() {
       const context = element?.getContext("2d");
       if (!context || !width || !height) return;
 
-      const fieldCount = window.innerWidth < 640 ? 2 : fields.length;
       for (let index = 0; index < fieldCount; index += 1) {
         const field = fields[index];
         const phase = time * field.speed + field.phase + scrollProgress * 0.2;
@@ -94,17 +104,16 @@ export default function Hero() {
       context.clearRect(0, 0, width, height);
       context.fillStyle = foreground;
       for (let index = 0; index < grid.length; index += 2) {
-        context.globalAlpha = dotAlpha(grid[index], grid[index + 1], time, scrollProgress);
-        context.fillRect(grid[index], grid[index + 1], dotSize, dotSize);
-      }
-
-      context.fillStyle = accent;
-      for (let index = 0; index < grid.length; index += 2) {
         const x = grid[index];
         const y = grid[index + 1];
         const alpha = dotAlpha(x, y, time, scrollProgress);
-        if (alpha > maxAlpha * 0.55 && Math.sin(x * 0.19 + y * 0.11) > 0.94) {
-          context.globalAlpha = alpha * 0.9;
+        if (alpha > maxAlpha * 0.72 && Math.sin(x * 0.19 + y * 0.11) > 0.985) {
+          context.fillStyle = accent;
+          context.globalAlpha = alpha * 0.55;
+          context.fillRect(x, y, dotSize, dotSize);
+          context.fillStyle = foreground;
+        } else {
+          context.globalAlpha = alpha;
           context.fillRect(x, y, dotSize, dotSize);
         }
       }
@@ -115,12 +124,13 @@ export default function Hero() {
       const element = canvas.current;
       if (!element) return;
       const rect = element.getBoundingClientRect();
-      const mobile = window.innerWidth < 640;
+      mobile = window.innerWidth < 640;
+      fieldCount = mobile ? 2 : fields.length;
       const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
 
       width = Math.round(rect.width);
       height = Math.round(rect.height);
-      step = mobile ? dotField.mobile.step : dotField.desktop.step;
+      step = mobile ? dotField.mobile.step : Math.max(dotField.desktop.step, Math.sqrt((width * height) / 12000));
       dotSize = mobile ? dotField.mobile.dotSize : dotField.desktop.dotSize;
       baseAlpha = mobile ? dotField.mobile.baseAlpha : dotField.desktop.baseAlpha;
       maxAlpha = mobile ? dotField.mobile.maxAlpha : dotField.desktop.maxAlpha;
@@ -128,6 +138,11 @@ export default function Hero() {
       const styles = getComputedStyle(document.documentElement);
       foreground = styles.getPropertyValue("--foreground").trim() || foreground;
       accent = styles.getPropertyValue("--accent").trim() || accent;
+      const shortestSide = Math.min(width, height);
+      fields.forEach((field, index) => {
+        const radius = field.radius * shortestSide;
+        fieldRadiusSquared[index] = radius * radius;
+      });
       element.width = Math.round(width * dpr);
       element.height = Math.round(height * dpr);
       const context = element.getContext("2d");
