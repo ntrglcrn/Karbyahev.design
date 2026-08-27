@@ -277,13 +277,13 @@ export default function Hero() {
           </div>
           <div className="mt-[clamp(1.5rem,4vw,4rem)] md:grid md:grid-cols-12 md:gap-x-6">
             <div className="md:col-span-8">
-              <h2 id="viled-title" className="font-[var(--font-arizona)] text-[clamp(4.5rem,14vw,13rem)] font-bold leading-[0.78] tracking-[-0.08em]">VILED</h2>
-              <p className="mt-3 text-xl tracking-[-0.04em] sm:text-2xl">E-commerce ecosystem</p>
+              <h2 id="viled-title" className="[font-family:var(--font-arizona)] text-[clamp(4.5rem,14vw,13rem)] font-bold leading-[0.78] tracking-[-0.08em]">VILED</h2>
+              <p className="mt-3 [font-family:var(--font-arizona)] text-xl font-bold tracking-[-0.04em] sm:text-2xl">E-commerce ecosystem</p>
             </div>
             <p className="mt-5 text-xs font-medium uppercase tracking-[0.18em] md:col-start-10 md:mt-3">Role — Product designer</p>
           </div>
-          <div className="mt-auto pt-8 md:grid md:grid-cols-12 md:gap-x-6">
-            <div className="h-[30svh] bg-[#d8d6d0] sm:h-[40svh] md:col-span-12 md:h-[46svh]" aria-label="Viled project media placeholder" role="img" />
+          <div className="mt-8 md:grid md:grid-cols-12 md:gap-x-6 md:mt-10">
+            <div className="h-[clamp(250px,32svh,320px)] bg-[#d8d6d0] md:col-span-12 md:h-[clamp(360px,48svh,620px)]" aria-label="Viled project media placeholder" role="img" />
           </div>
           <div className="mt-3 grid grid-cols-2 gap-3 border-t border-current pt-2 text-xs font-medium uppercase tracking-[0.18em] md:grid-cols-12">
             <span className="md:col-span-3">Product design</span>
