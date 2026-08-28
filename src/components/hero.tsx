@@ -30,6 +30,7 @@ export default function Hero() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const composition = useRef<HTMLDivElement>(null);
   const collaborators = useRef<HTMLDivElement>(null);
+  const pointerLabel = useRef<HTMLDivElement>(null);
   const text = useRef<Array<HTMLSpanElement | null>>([]);
 
   useEffect(() => {
@@ -81,6 +82,7 @@ export default function Hero() {
       if (composition.current) composition.current.style.transform = "";
       if (canvas.current) canvas.current.style.opacity = "";
       if (collaborators.current) collaborators.current.style.opacity = "";
+      if (pointerLabel.current) pointerLabel.current.style.opacity = "";
     };
 
     const dotAlpha = (x: number, y: number, time: number, scrollProgress: number) => {
@@ -234,6 +236,12 @@ export default function Hero() {
       if (composition.current) composition.current.style.transform = `translate3d(0, ${-handoff * (mobile ? 4 : 10)}svh, 0)`;
       if (canvas.current) canvas.current.style.opacity = `${1 - handoff * 0.65}`;
       if (collaborators.current) collaborators.current.style.opacity = `${1 - handoff}`;
+      if (pointerLabel.current) {
+        const labelX = width * (pointerCurrentX + 1) * 0.5 + 48;
+        const labelY = height * (pointerCurrentY + 1) * 0.5 + 48;
+        pointerLabel.current.style.transform = `translate3d(${labelX}px, ${labelY}px, 0)`;
+        pointerLabel.current.style.opacity = `${pointerStrength}`;
+      }
 
       if (time - lastDraw >= frameTime) {
         drawDotField(time, progress);
@@ -319,6 +327,9 @@ export default function Hero() {
         <canvas ref={canvas} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />
         <div ref={collaborators} className="absolute inset-0 z-[5]">
           <HeroCollaborators />
+        </div>
+        <div ref={pointerLabel} className="pointer-events-none absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border border-[rgb(255_255_255_/_0.28)] bg-foreground px-[18px] pt-[6px] pb-[9px] text-[27px] font-semibold leading-none tracking-[0.035em] text-background opacity-0 shadow-[0_2px_6px_rgb(21_0_225_/_0.1)] will-change-transform" aria-hidden="true">
+          Guest
         </div>
         <div ref={composition} className="container relative z-10 w-full -translate-y-[3svh] will-change-transform motion-reduce:py-12">
           <p className="mb-8 text-xs font-medium uppercase tracking-[0.18em] text-accent sm:mb-12">
