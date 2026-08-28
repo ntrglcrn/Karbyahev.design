@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import HeroCollaborators from "./hero-collaborators";
 import styles from "./final-scene.module.css";
 
-const stages = ["DESIGN", "SYSTEM", "BUILD", "SHIP"];
+const stages = ["DESIGN", "PRODUCT", "BUILD", "SHIP"];
 
 export default function FinalScene() {
   const scene = useRef<HTMLElement>(null);
@@ -55,7 +55,7 @@ export default function FinalScene() {
   return (
     <footer ref={scene} className={styles.scene}>
       <div className={styles.sticky}>
-        <div className={styles.sequence} role="img" aria-label="Design, system, build, ship">
+        <div className={styles.sequence} role="img" aria-label="Design, product, build, ship">
           {stages.map((stage, index) => (
             <span key={stage} className={styles.word} data-stage={index} aria-hidden="true">
               {stage}
@@ -66,7 +66,7 @@ export default function FinalScene() {
         <div className={styles.finale}>
           <div className={styles.ctaStage}>
             <HeroCollaborators />
-            <a ref={cta} className={styles.cta} href="mailto:alexandrkarb@gmail.com">
+            <a ref={cta} className={styles.cta} href="https://t.me/ntrglcrn">
               <span>LET’S BUILD</span>
               <span>SOMETHING.</span>
             </a>
