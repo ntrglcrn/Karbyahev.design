@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef } from "react";
+import HeroCollaborators from "./hero-collaborators";
 
 const lines = [
   { text: "PRODUCT", initialClass: "ml-0", travelX: -0.015, pointerX: 2, pointerY: -1 },
@@ -13,9 +14,9 @@ const lines = [
 ];
 
 const dotField = {
-  desktop: { step: 14, dotSize: 1.4, baseAlpha: 0.12, maxAlpha: 0.55, frameTime: 32 },
+  desktop: { step: 14, dotSize: 1.9, baseAlpha: 0.26, maxAlpha: 0.84, frameTime: 32 },
   mobile: { step: 18, dotSize: 1.2, baseAlpha: 0.09, maxAlpha: 0.42, frameTime: 42 },
-  cleanZoneStrength: 0.3,
+  cleanZoneStrength: 0.1,
 };
 
 const fields = [
@@ -24,7 +25,7 @@ const fields = [
   { x: 0.62, y: 0.14, radius: 0.32, speed: 0.0001, phase: 4.3, intensity: 0.9 },
 ];
 
-export default function Hero({ children }: { children: ReactNode }) {
+export default function Hero() {
   const hero = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const composition = useRef<HTMLDivElement>(null);
@@ -313,12 +314,13 @@ export default function Hero({ children }: { children: ReactNode }) {
     <section ref={hero} className="relative motion-reduce:h-auto">
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden py-12 motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] motion-reduce:flex-col motion-reduce:items-stretch">
         <canvas ref={canvas} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />
+        <HeroCollaborators />
         <div ref={composition} className="container relative z-10 w-full -translate-y-[3svh] will-change-transform motion-reduce:py-12">
           <p className="mb-8 text-xs font-medium uppercase tracking-[0.18em] text-accent sm:mb-12">
             ALEXANDR KARBYSHEV
           </p>
           <h1
-            className="flex flex-col text-[clamp(3.55rem,17vw,5.5rem)] font-bold leading-[0.88] tracking-[-0.075em] md:text-[clamp(4.8rem,11.3vw,10.8rem)] md:leading-[0.84]"
+            className="flex flex-col text-[clamp(3.55rem,17vw,5.5rem)] font-bold leading-[0.88] tracking-[-0.075em] md:text-[clamp(4.8rem,11.3vw,10.8rem)] md:leading-[0.84] min-[192rem]:origin-left min-[192rem]:scale-x-150 min-[192rem]:text-[clamp(10.8rem,18vw,24rem)]"
             aria-label="Product Designer Building Digital Commerce and SaaS"
           >
             {lines.map(({ text: line, initialClass, travelX, travelY, scaleDelta }, index) => (
@@ -334,7 +336,6 @@ export default function Hero({ children }: { children: ReactNode }) {
         </div>
       </div>
       <div className="h-[167svh] motion-reduce:hidden" aria-hidden="true" />
-      {children}
     </section>
   );
 }
