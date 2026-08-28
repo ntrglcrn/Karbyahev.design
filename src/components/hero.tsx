@@ -1,21 +1,22 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import HeroCollaborators from "./hero-collaborators";
 
 const lines = [
-  { text: "PRODUCT", initialClass: "ml-0", travelX: -0.015 },
-  { text: "DESIGNER", initialClass: "ml-[5%] md:ml-[10%] lg:ml-[18%]", travelX: -0.09 },
-  { text: "BUILDING", initialClass: "ml-[1%] md:ml-0 lg:ml-0", travelX: 0.16 },
-  { text: "DIGITAL", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: -0.2, travelY: -5, scaleDelta: 0.006 },
-  { text: "COMMERCE", initialClass: "ml-0 md:-ml-[4%] lg:ml-0", travelX: 0.075, travelY: 3 },
-  { text: "& SAAS", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: 0.11, travelY: 2, scaleDelta: 0.002 },
+  { text: "PRODUCT", initialClass: "ml-0", travelX: -0.015, pointerX: 2, pointerY: -1 },
+  { text: "DESIGNER", initialClass: "ml-[5%] md:ml-[10%] lg:ml-[18%]", travelX: -0.09, pointerX: 8, pointerY: 4 },
+  { text: "BUILDING", initialClass: "ml-[1%] md:ml-0 lg:ml-0", travelX: 0.16, pointerX: -10, pointerY: 5 },
+  { text: "DIGITAL", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: -0.2, travelY: -5, scaleDelta: 0.006, pointerX: 6, pointerY: -4 },
+  { text: "COMMERCE", initialClass: "ml-0 md:-ml-[4%] lg:ml-0", travelX: 0.075, travelY: 3, pointerX: -7, pointerY: 3 },
+  { text: "& SAAS", initialClass: "ml-[8%] md:ml-[15%] lg:ml-[28%]", travelX: 0.11, travelY: 2, scaleDelta: 0.002, pointerX: 9, pointerY: -3 },
 
 ];
 
 const dotField = {
-  desktop: { step: 14, dotSize: 1.4, baseAlpha: 0.12, maxAlpha: 0.55, frameTime: 32 },
+  desktop: { step: 14, dotSize: 1.9, baseAlpha: 0.26, maxAlpha: 0.84, frameTime: 32 },
   mobile: { step: 18, dotSize: 1.2, baseAlpha: 0.09, maxAlpha: 0.42, frameTime: 42 },
-  cleanZoneStrength: 0.3,
+  cleanZoneStrength: 0.1,
 };
 
 const fields = [
@@ -27,10 +28,12 @@ const fields = [
 export default function Hero() {
   const hero = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
+  const composition = useRef<HTMLDivElement>(null);
   const text = useRef<Array<HTMLSpanElement | null>>([]);
 
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const coarsePointer = window.matchMedia("(pointer: coarse)");
     const fieldX = new Float32Array(fields.length);
     const fieldY = new Float32Array(fields.length);
     const fieldRadiusSquared = new Float32Array(fields.length);
@@ -51,11 +54,31 @@ export default function Hero() {
     let accent = "#c8ff00";
     let mobile = false;
     let fieldCount = fields.length;
+    let pointerTargetX = 0;
+    let pointerTargetY = 0;
+    let pointerCurrentX = 0;
+    let pointerCurrentY = 0;
+    let pointerStrength = 0;
+    let pointerActive = false;
+    let pointerEnabled = false;
+
+    const resetPointer = () => {
+      pointerActive = false;
+      pointerTargetX = 0;
+      pointerTargetY = 0;
+    };
+
+    const updatePointerAvailability = () => {
+      pointerEnabled = !mobile && !coarsePointer.matches && !reduceMotion.matches;
+      if (!pointerEnabled) resetPointer();
+    };
 
     const clearTransforms = () => {
       text.current.forEach((line) => {
         if (line) line.style.transform = "";
       });
+      if (composition.current) composition.current.style.transform = "";
+      if (canvas.current) canvas.current.style.opacity = "";
     };
 
     const dotAlpha = (x: number, y: number, time: number, scrollProgress: number) => {
@@ -103,18 +126,35 @@ export default function Hero() {
 
       context.clearRect(0, 0, width, height);
       context.fillStyle = foreground;
+      const pointerX = width * (pointerCurrentX + 1) * 0.5;
+      const pointerY = height * (pointerCurrentY + 1) * 0.5;
+      const pointerRadius = 220;
+      const pointerRadiusSquared = pointerRadius * pointerRadius;
       for (let index = 0; index < grid.length; index += 2) {
         const x = grid[index];
         const y = grid[index + 1];
-        const alpha = dotAlpha(x, y, time, scrollProgress);
-        if (alpha > maxAlpha * 0.72 && Math.sin(x * 0.19 + y * 0.11) > 0.985) {
+        let renderX = x;
+        let renderY = y;
+        let pointerInfluence = 0;
+        const pointerDeltaX = x - pointerX;
+        const pointerDeltaY = y - pointerY;
+        const pointerDistanceSquared = pointerDeltaX * pointerDeltaX + pointerDeltaY * pointerDeltaY;
+        if (pointerStrength && pointerDistanceSquared < pointerRadiusSquared) {
+          pointerInfluence = (1 - pointerDistanceSquared / pointerRadiusSquared) ** 2 * pointerStrength;
+          const inverseDistance = 1 / Math.sqrt(pointerDistanceSquared || 1);
+          const asymmetry = Math.sin(x * 0.021 + y * 0.017 + time * 0.001) * 0.22;
+          renderX += (pointerDeltaX * inverseDistance + pointerCurrentX * (0.24 + asymmetry)) * pointerInfluence * 9;
+          renderY += (pointerDeltaY * inverseDistance + pointerCurrentY * (0.24 - asymmetry)) * pointerInfluence * 9;
+        }
+        const alpha = dotAlpha(x, y, time, scrollProgress) * (1 + pointerInfluence * 0.2);
+        if (alpha > maxAlpha * 0.72 && Math.sin(x * 0.19 + y * 0.11) > 0.985 - pointerInfluence * 0.012) {
           context.fillStyle = accent;
           context.globalAlpha = alpha * 0.55;
-          context.fillRect(x, y, dotSize, dotSize);
+          context.fillRect(renderX, renderY, dotSize, dotSize);
           context.fillStyle = foreground;
         } else {
           context.globalAlpha = alpha;
-          context.fillRect(x, y, dotSize, dotSize);
+          context.fillRect(renderX, renderY, dotSize, dotSize);
         }
       }
       context.globalAlpha = 1;
@@ -125,6 +165,7 @@ export default function Hero() {
       if (!element) return;
       const rect = element.getBoundingClientRect();
       mobile = window.innerWidth < 640;
+      updatePointerAvailability();
       fieldCount = mobile ? 2 : fields.length;
       const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
 
@@ -174,15 +215,22 @@ export default function Hero() {
       }
 
       current += (target - current) * 0.12;
+      pointerCurrentX += (pointerTargetX - pointerCurrentX) * 0.08;
+      pointerCurrentY += (pointerTargetY - pointerCurrentY) * 0.08;
+      pointerStrength += ((pointerActive ? 1 : 0) - pointerStrength) * 0.08;
       const travelScale = window.innerWidth < 640 ? 0.28 : window.innerWidth < 1024 ? 0.62 : 1;
       const progress = current * (2 - current);
+      const handoff = Math.min(Math.max((current - 0.62) / 0.38, 0), 1);
 
-      lines.forEach(({ travelX, travelY = 0, scaleDelta = 0 }, index) => {
+      lines.forEach(({ travelX, travelY = 0, scaleDelta = 0, pointerX = 0, pointerY = 0 }, index) => {
         const line = text.current[index];
         if (line) {
-          line.style.transform = `translate3d(${progress * travelX * window.innerWidth * travelScale}px, ${progress * travelY}px, 0) scale(${1 + progress * scaleDelta})`;
+          line.style.transform = `translate3d(${progress * travelX * window.innerWidth * travelScale + pointerCurrentX * pointerX * pointerStrength}px, ${progress * travelY + pointerCurrentY * pointerY * pointerStrength}px, 0) scale(${1 + progress * scaleDelta})`;
         }
       });
+
+      if (composition.current) composition.current.style.transform = `translate3d(0, ${-handoff * 10}svh, 0)`;
+      if (canvas.current) canvas.current.style.opacity = `${1 - handoff * 0.65}`;
 
       if (time - lastDraw >= frameTime) {
         drawDotField(time, progress);
@@ -210,6 +258,7 @@ export default function Hero() {
     });
     const handleVisibility = () => {
       if (document.hidden) cancelAnimationFrame(frame);
+      resetPointer();
       frame = 0;
       if (!document.hidden) schedule();
     };
@@ -217,34 +266,61 @@ export default function Hero() {
       resizeCanvas();
       update();
     };
+    const handleMotionChange = () => {
+      updatePointerAvailability();
+      update();
+    };
+    const handlePointerMove = (event: PointerEvent) => {
+      const element = canvas.current;
+      if (!pointerEnabled || !element) return;
+      const rect = element.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) {
+        resetPointer();
+        return;
+      }
+      pointerTargetX = Math.min(Math.max((event.clientX - rect.left) / rect.width * 2 - 1, -1), 1);
+      pointerTargetY = Math.min(Math.max((event.clientY - rect.top) / rect.height * 2 - 1, -1), 1);
+      pointerActive = true;
+      schedule();
+    };
 
     resizeCanvas();
     update();
-    if (hero.current) observer.observe(hero.current);
+    const section = hero.current;
+    if (section) observer.observe(section);
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", handleResize);
+    window.addEventListener("blur", resetPointer);
     document.addEventListener("visibilitychange", handleVisibility);
-    reduceMotion.addEventListener("change", update);
+    reduceMotion.addEventListener("change", handleMotionChange);
+    coarsePointer.addEventListener("change", handleResize);
+    section?.addEventListener("pointermove", handlePointerMove, { passive: true });
+    section?.addEventListener("pointerleave", resetPointer);
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("blur", resetPointer);
       document.removeEventListener("visibilitychange", handleVisibility);
-      reduceMotion.removeEventListener("change", update);
+      reduceMotion.removeEventListener("change", handleMotionChange);
+      coarsePointer.removeEventListener("change", handleResize);
+      section?.removeEventListener("pointermove", handlePointerMove);
+      section?.removeEventListener("pointerleave", resetPointer);
     };
   }, []);
 
   return (
-    <section ref={hero} className="relative h-[180svh]">
-      <div className="sticky top-0 flex h-[100svh] items-center overflow-x-clip py-12">
+    <section ref={hero} className="relative motion-reduce:h-auto">
+      <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden py-12 motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] motion-reduce:flex-col motion-reduce:items-stretch">
         <canvas ref={canvas} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />
-        <div className="container relative z-10 w-full -translate-y-[3svh]">
+        <HeroCollaborators />
+        <div ref={composition} className="container relative z-10 w-full -translate-y-[3svh] will-change-transform motion-reduce:py-12">
           <p className="mb-8 text-xs font-medium uppercase tracking-[0.18em] text-accent sm:mb-12">
             ALEXANDR KARBYSHEV
           </p>
           <h1
-            className="flex flex-col text-[clamp(3.55rem,17vw,5.5rem)] font-bold leading-[0.88] tracking-[-0.075em] md:text-[clamp(4.8rem,11.3vw,10.8rem)] md:leading-[0.84]"
+            className="flex flex-col text-[clamp(3.55rem,17vw,5.5rem)] font-bold leading-[0.88] tracking-[-0.075em] md:text-[clamp(4.8rem,11.3vw,10.8rem)] md:leading-[0.84] min-[192rem]:origin-left min-[192rem]:scale-x-150 min-[192rem]:text-[clamp(10.8rem,18vw,24rem)]"
             aria-label="Product Designer Building Digital Commerce and SaaS"
           >
             {lines.map(({ text: line, initialClass, travelX, travelY, scaleDelta }, index) => (
@@ -259,6 +335,7 @@ export default function Hero() {
           </h1>
         </div>
       </div>
+      <div className="h-[167svh] motion-reduce:hidden" aria-hidden="true" />
     </section>
   );
 }
