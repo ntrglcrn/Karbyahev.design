@@ -1,0 +1,83 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import HeroCollaborators from "./hero-collaborators";
+import styles from "./final-scene.module.css";
+
+const stages = ["DESIGN", "SYSTEM", "BUILD", "SHIP"];
+
+export default function FinalScene() {
+  const scene = useRef<HTMLElement>(null);
+  const cta = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    const element = scene.current;
+    const link = cta.current;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!element || !link || reduceMotion.matches) return;
+
+    let frame = 0;
+    let target = 0;
+    let current = 0;
+    const render = () => {
+      current += (target - current) * .1;
+      if (Math.abs(target - current) < .0001) current = target;
+      element.style.setProperty("--progress", current.toFixed(4));
+      element.dataset.final = String(current > .77);
+      frame = current === target ? 0 : requestAnimationFrame(render);
+    };
+    const update = () => {
+      const rect = element.getBoundingClientRect();
+      target = Math.min(Math.max(-rect.top / Math.max(rect.height - innerHeight, 1), 0), 1);
+      if (!frame) frame = requestAnimationFrame(render);
+    };
+    const pointer = (event: PointerEvent) => {
+      const rect = link.getBoundingClientRect();
+      link.style.setProperty("--x", `${((event.clientX - rect.left) / rect.width - .5) * 1.4}rem`);
+      link.style.setProperty("--y", `${((event.clientY - rect.top) / rect.height - .5) * .7}rem`);
+    };
+    const reset = () => { link.style.setProperty("--x", "0rem"); link.style.setProperty("--y", "0rem"); };
+
+    update();
+    addEventListener("scroll", update, { passive: true });
+    addEventListener("resize", update);
+    link.addEventListener("pointermove", pointer, { passive: true });
+    link.addEventListener("pointerleave", reset);
+    return () => {
+      cancelAnimationFrame(frame);
+      removeEventListener("scroll", update);
+      removeEventListener("resize", update);
+      link.removeEventListener("pointermove", pointer);
+      link.removeEventListener("pointerleave", reset);
+    };
+  }, []);
+
+  return (
+    <footer ref={scene} className={styles.scene}>
+      <div className={styles.sticky}>
+        <div className={styles.sequence} role="img" aria-label="Design, system, build, ship">
+          {stages.map((stage, index) => (
+            <span key={stage} className={styles.word} data-stage={index} aria-hidden="true">
+              {stage}
+            </span>
+          ))}
+        </div>
+
+        <div className={styles.finale}>
+          <div className={styles.ctaStage}>
+            <HeroCollaborators />
+            <a ref={cta} className={styles.cta} href="mailto:alexandrkarb@gmail.com">
+              <span>LET’S BUILD</span>
+              <span>SOMETHING.</span>
+            </a>
+          </div>
+          <nav className={styles.contacts} aria-label="Contact links">
+            <a href="mailto:alexandrkarb@gmail.com"><small>Email</small><span>alexandrkarb@gmail.com ↗</span></a>
+            <a href="https://instagram.com/ntrglcrnn"><small>Instagram</small><span>@ntrglcrnn ↗</span></a>
+            <a href="https://t.me/ntrglcrn"><small>Telegram</small><span>@ntrglcrn ↗</span></a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  );
+}

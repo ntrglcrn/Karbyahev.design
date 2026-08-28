@@ -1,7 +1,7 @@
 .layer {
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: 20;
   overflow: hidden;
   pointer-events: none;
 }
@@ -21,23 +21,23 @@
 }
 
 .cursor svg {
-  width: 16px;
-  height: 20px;
+  width: 48px;
+  height: 60px;
   flex: none;
   filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.14));
 }
 
 .label {
-  margin: 13px 0 0 -2px;
+  margin: 39px 0 0 -6px;
   border: 1px solid rgb(255 255 255 / 0.28);
   border-radius: 999px;
-  padding: 2px 6px 3px;
+  padding: 6px 18px 9px;
   color: #1500e1;
-  font-size: 9px;
+  font-size: 27px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.035em;
-  opacity: 0.82;
+  opacity: 1;
   box-shadow: 0 2px 6px rgb(21 0 225 / 0.1);
 }
 
@@ -79,37 +79,37 @@
 
 @keyframes design {
   0%, 5% { opacity: 0; transform: translate3d(-10vw, 18vh, 0); }
-  9% { opacity: 0.76; }
+  9% { opacity: 1; }
   20%, 28% { opacity: 1; transform: translate3d(57vw, 25vh, 0); }
-  32%, 35% { opacity: 0.92; transform: translate3d(61vw, 22vh, 0); }
-  44% { opacity: 0.72; transform: translate3d(89vw, 14vh, 0); }
+  32%, 35% { opacity: 1; transform: translate3d(61vw, 22vh, 0); }
+  44% { opacity: 1; transform: translate3d(89vw, 14vh, 0); }
   49%, 100% { opacity: 0; transform: translate3d(106vw, 11vh, 0); }
 }
 
 @keyframes product {
   0%, 18% { opacity: 0; transform: translate3d(105vw, 43vh, 0); }
-  22% { opacity: 0.74; }
+  22% { opacity: 1; }
   32%, 39% { opacity: 1; transform: translate3d(72vw, 48vh, 0); }
-  43%, 46% { opacity: 0.9; transform: translate3d(67vw, 45vh, 0); }
-  57% { opacity: 0.7; transform: translate3d(87vw, 62vh, 0); }
+  43%, 46% { opacity: 1; transform: translate3d(67vw, 45vh, 0); }
+  57% { opacity: 1; transform: translate3d(87vw, 62vh, 0); }
   63%, 100% { opacity: 0; transform: translate3d(106vw, 70vh, 0); }
 }
 
 @keyframes engineering {
   0%, 39% { opacity: 0; transform: translate3d(76vw, 108vh, 0); }
-  43% { opacity: 0.72; }
+  43% { opacity: 1; }
   54%, 63% { opacity: 1; transform: translate3d(73vw, 79vh, 0); }
-  67%, 70% { opacity: 0.9; transform: translate3d(69vw, 74vh, 0); }
-  80% { opacity: 0.7; transform: translate3d(62vw, 71vh, 0); }
+  67%, 70% { opacity: 1; transform: translate3d(69vw, 74vh, 0); }
+  80% { opacity: 1; transform: translate3d(62vw, 71vh, 0); }
   86%, 100% { opacity: 0; transform: translate3d(55vw, 106vh, 0); }
 }
 
 @keyframes founder {
   0%, 63% { opacity: 0; transform: translate3d(-12vw, 69vh, 0); }
-  67% { opacity: 0.74; }
+  67% { opacity: 1; }
   76%, 82% { opacity: 1; transform: translate3d(60vw, 43vh, 0); }
-  86%, 88% { opacity: 0.9; transform: translate3d(64vw, 39vh, 0); }
-  96% { opacity: 0.68; transform: translate3d(90vw, 20vh, 0); }
+  86%, 88% { opacity: 1; transform: translate3d(64vw, 39vh, 0); }
+  96% { opacity: 1; transform: translate3d(90vw, 20vh, 0); }
   100% { opacity: 0; transform: translate3d(108vw, 14vh, 0); }
 }
 
@@ -124,30 +124,30 @@
 
 @keyframes mobileDesign {
   0%, 7% { opacity: 0; transform: translate3d(-18vw, 23svh, 0); }
-  12% { opacity: .78; }
+  12% { opacity: 1; }
   24%, 34% { opacity: 1; transform: translate3d(49vw, 29svh, 0); }
-  43% { opacity: .72; transform: translate3d(78vw, 35svh, 0); }
+  43% { opacity: 1; transform: translate3d(78vw, 35svh, 0); }
   49%, 100% { opacity: 0; transform: translate3d(106vw, 38svh, 0); }
 }
 
 @keyframes mobileProduct {
   0%, 48% { opacity: 0; transform: translate3d(102vw, 61svh, 0); }
-  54% { opacity: .76; }
+  54% { opacity: 1; }
   66%, 77% { opacity: 1; transform: translate3d(42vw, 68svh, 0); }
-  87% { opacity: .68; transform: translate3d(25vw, 78svh, 0); }
+  87% { opacity: 1; transform: translate3d(25vw, 78svh, 0); }
   94%, 100% { opacity: 0; transform: translate3d(12vw, 104svh, 0); }
 }
 
 @keyframes mobileEngineering {
   0%, 82% { opacity: 0; transform: translate3d(74vw, 45svh, 0); }
-  87%, 91% { opacity: .7; transform: translate3d(65vw, 49svh, 0); }
+  87%, 91% { opacity: 1; transform: translate3d(65vw, 49svh, 0); }
   97%, 100% { opacity: 0; transform: translate3d(88vw, 54svh, 0); }
 }
 
 @media (max-width: 39.999rem) {
   .stage { transform: none; }
-  .cursor svg { width: 13px; height: 16px; }
-  .label { margin-top: 10px; padding: 2px 5px; font-size: 8px; }
+  .cursor svg { width: 39px; height: 48px; }
+  .label { margin-top: 30px; padding: 6px 15px; font-size: 24px; }
   .design { animation-name: mobileDesign; animation-duration: 14s; }
   .product { animation-name: mobileProduct; animation-duration: 14s; }
   .engineering { animation-name: mobileEngineering; animation-duration: 14s; }

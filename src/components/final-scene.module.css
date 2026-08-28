@@ -1,0 +1,129 @@
+.scene {
+  --progress: 0;
+  position: relative;
+  height: 320svh;
+  margin-top: clamp(3rem, 8svh, 7rem);
+  background: var(--background);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.sequence,
+.finale { position: absolute; inset: 0; }
+
+.sequence {
+  opacity: clamp(0, calc((.82 - var(--progress)) * 18), 1);
+}
+
+.word {
+  --start: 0;
+  --local: clamp(0, calc((var(--progress) - var(--start)) / .2), 1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--foreground);
+  font-family: var(--font-arizona), Georgia, serif;
+  font-size: clamp(5rem, 18vw, 18rem);
+  font-weight: 700;
+  line-height: .76;
+  letter-spacing: calc(-.075em + var(--local) * .045em);
+  opacity: clamp(0, min(calc(var(--local) * 5), calc((1 - var(--local)) * 5)), 1);
+  transform: translate3d(-50%, calc(-50% + (.5 - var(--local)) * 70vh), 0) scale(calc(.82 + var(--local) * .28));
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.word[data-stage="0"] { --start: -.1; }
+.word[data-stage="1"] { --start: .1; }
+.word[data-stage="2"] { --start: .3; }
+.word[data-stage="3"] { --start: .5; }
+
+.finale {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 5svh, 4rem) var(--page-gutter) clamp(1rem, 3svh, 2rem);
+  opacity: clamp(0, calc((var(--progress) - .77) * 8), 1);
+  pointer-events: none;
+  transform: translate3d(0, calc((1 - clamp(0, (var(--progress) - .77) * 5, 1)) * 8vh), 0);
+}
+
+.scene[data-final="true"] .finale { pointer-events: auto; }
+
+.ctaStage {
+  position: relative;
+  display: flex;
+  flex: 1;
+}
+
+.cta {
+  --x: 0rem;
+  --y: 0rem;
+  display: flex;
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  color: inherit;
+  font-family: var(--font-arizona), Georgia, serif;
+  font-size: clamp(4.3rem, 13vw, 14rem);
+  font-weight: 700;
+  line-height: .76;
+  letter-spacing: -.075em;
+  text-decoration: none;
+}
+
+.cta span {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  transform: translate3d(var(--x), var(--y), 0);
+  transition: letter-spacing 220ms ease, transform 180ms ease-out;
+}
+
+.cta span:last-child { align-self: flex-end; transform: translate3d(calc(var(--x) * -.6), calc(var(--y) * -.6), 0); }
+
+.contacts {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: .8rem;
+}
+
+.contacts a { display: grid; gap: .2rem; color: inherit; text-decoration: none; }
+.contacts small { color: var(--muted); font-size: .62rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.contacts span { width: fit-content; border-bottom: 1px solid transparent; font-size: clamp(.82rem, 1.1vw, 1rem); transition: border-color 160ms ease; }
+.contacts a:hover span { border-color: currentColor; }
+.contacts a:focus-visible,
+.cta:focus-visible { outline: 3px solid var(--accent); outline-offset: .35rem; }
+
+@media (hover: hover) and (pointer: fine) {
+  .cta:hover span { letter-spacing: -.055em; }
+}
+
+@media (max-width: 47.999rem) {
+  .scene { height: 280svh; }
+  .word { font-size: clamp(4rem, 22vw, 7rem); transform: translate3d(-50%, calc(-50% + (.5 - var(--local)) * 58vh), 0) scale(calc(.88 + var(--local) * .18)); }
+  .finale { padding-top: 2rem; }
+  .cta { font-size: clamp(3.4rem, 17.5vw, 5.3rem); line-height: .82; }
+  .cta span:last-child { align-self: flex-start; }
+  .contacts { grid-template-columns: 1fr; gap: .75rem; }
+  .contacts a { display: flex; min-height: 2.75rem; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--border); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene { height: auto; margin-top: 5rem; }
+  .sticky { position: relative; height: auto; min-height: 100svh; overflow: visible; }
+  .sequence { position: relative; display: flex; flex-wrap: wrap; gap: .5rem 1rem; padding: 2rem var(--page-gutter) 5rem; opacity: 1; }
+  .word { position: static; font-size: clamp(2rem, 7vw, 4.5rem); opacity: 1; transform: none; clip-path: none; }
+  .finale { position: relative; min-height: 100svh; opacity: 1; pointer-events: auto; transform: none; }
+  .cta span,
+  .cta span:last-child { transform: none; transition: none; }
+}

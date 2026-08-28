@@ -1,4 +1,5 @@
 import Hero from "@/components/hero";
+import FinalScene from "@/components/final-scene";
 import SelectedWork from "@/components/selected-work";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <main>
       <Hero />
       <SelectedWork />
+      <FinalScene />
     </main>
   );
 }
