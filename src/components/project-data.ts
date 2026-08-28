@@ -15,7 +15,7 @@ export const projects: Project[] = [
     slug: "viled",
     index: "01",
     tab: "CODE DE VIE",
-    title: "Code de Vie",
+    title: "CODE DE VIE",
     subtitle: "E-commerce ecosystem",
     year: "2026",
     role: "Senior product designer",
