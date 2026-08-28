@@ -1,12 +1,28 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import type { Project } from "./project-data";
 import styles from "./project-file.module.css";
 
 export default function ProjectFile({ project, order, total }: { project: Project; order: number; total: number }) {
   const titleId = `project-${project.index}-title`;
+  const item = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const element = item.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      element.dataset.visible = "true";
+      observer.disconnect();
+    }, { rootMargin: "0px 0px -8%", threshold: 0.08 });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <article className={styles.item} data-tab={order % 4} style={{ zIndex: order + 1 }} aria-labelledby={titleId}>
+    <article ref={item} className={styles.item} data-tab={order % 4} style={{ zIndex: order + 1 }} aria-labelledby={titleId}>
       <Link
         className={styles.folder}
         data-tone={order % 3}

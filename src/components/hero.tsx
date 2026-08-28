@@ -29,6 +29,7 @@ export default function Hero() {
   const hero = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const composition = useRef<HTMLDivElement>(null);
+  const collaborators = useRef<HTMLDivElement>(null);
   const text = useRef<Array<HTMLSpanElement | null>>([]);
 
   useEffect(() => {
@@ -79,6 +80,7 @@ export default function Hero() {
       });
       if (composition.current) composition.current.style.transform = "";
       if (canvas.current) canvas.current.style.opacity = "";
+      if (collaborators.current) collaborators.current.style.opacity = "";
     };
 
     const dotAlpha = (x: number, y: number, time: number, scrollProgress: number) => {
@@ -218,7 +220,7 @@ export default function Hero() {
       pointerCurrentX += (pointerTargetX - pointerCurrentX) * 0.08;
       pointerCurrentY += (pointerTargetY - pointerCurrentY) * 0.08;
       pointerStrength += ((pointerActive ? 1 : 0) - pointerStrength) * 0.08;
-      const travelScale = window.innerWidth < 640 ? 0.28 : window.innerWidth < 1024 ? 0.62 : 1;
+      const travelScale = window.innerWidth < 640 ? 0.22 : window.innerWidth < 1024 ? 0.62 : 1;
       const progress = current * (2 - current);
       const handoff = Math.min(Math.max((current - 0.62) / 0.38, 0), 1);
 
@@ -229,8 +231,9 @@ export default function Hero() {
         }
       });
 
-      if (composition.current) composition.current.style.transform = `translate3d(0, ${-handoff * 10}svh, 0)`;
+      if (composition.current) composition.current.style.transform = `translate3d(0, ${-handoff * (mobile ? 4 : 10)}svh, 0)`;
       if (canvas.current) canvas.current.style.opacity = `${1 - handoff * 0.65}`;
+      if (collaborators.current) collaborators.current.style.opacity = `${1 - handoff}`;
 
       if (time - lastDraw >= frameTime) {
         drawDotField(time, progress);
@@ -314,7 +317,9 @@ export default function Hero() {
     <section ref={hero} className="relative motion-reduce:h-auto">
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden py-12 motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] motion-reduce:flex-col motion-reduce:items-stretch">
         <canvas ref={canvas} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />
-        <HeroCollaborators />
+        <div ref={collaborators} className="absolute inset-0 z-[5]">
+          <HeroCollaborators />
+        </div>
         <div ref={composition} className="container relative z-10 w-full -translate-y-[3svh] will-change-transform motion-reduce:py-12">
           <p className="mb-8 text-xs font-medium uppercase tracking-[0.18em] text-accent sm:mb-12">
             ALEXANDR KARBYSHEV
@@ -335,7 +340,7 @@ export default function Hero() {
           </h1>
         </div>
       </div>
-      <div className="h-[167svh] motion-reduce:hidden" aria-hidden="true" />
+      <div className="h-[48svh] sm:h-[120svh] lg:h-[167svh] motion-reduce:hidden" aria-hidden="true" />
     </section>
   );
 }

@@ -117,11 +117,47 @@
   .stage { transform: scale(0.9); }
 }
 
-@media (max-width: 63.999rem) {
+@media (max-width: 63.999rem) and (min-width: 40rem) {
   .stage { transform: scale(0.7); }
   .founder { display: none; }
 }
 
-@media (max-width: 39.999rem), (pointer: coarse), (prefers-reduced-motion: reduce) {
+@keyframes mobileDesign {
+  0%, 7% { opacity: 0; transform: translate3d(-18vw, 23svh, 0); }
+  12% { opacity: .78; }
+  24%, 34% { opacity: 1; transform: translate3d(49vw, 29svh, 0); }
+  43% { opacity: .72; transform: translate3d(78vw, 35svh, 0); }
+  49%, 100% { opacity: 0; transform: translate3d(106vw, 38svh, 0); }
+}
+
+@keyframes mobileProduct {
+  0%, 48% { opacity: 0; transform: translate3d(102vw, 61svh, 0); }
+  54% { opacity: .76; }
+  66%, 77% { opacity: 1; transform: translate3d(42vw, 68svh, 0); }
+  87% { opacity: .68; transform: translate3d(25vw, 78svh, 0); }
+  94%, 100% { opacity: 0; transform: translate3d(12vw, 104svh, 0); }
+}
+
+@keyframes mobileEngineering {
+  0%, 82% { opacity: 0; transform: translate3d(74vw, 45svh, 0); }
+  87%, 91% { opacity: .7; transform: translate3d(65vw, 49svh, 0); }
+  97%, 100% { opacity: 0; transform: translate3d(88vw, 54svh, 0); }
+}
+
+@media (max-width: 39.999rem) {
+  .stage { transform: none; }
+  .cursor svg { width: 13px; height: 16px; }
+  .label { margin-top: 10px; padding: 2px 5px; font-size: 8px; }
+  .design { animation-name: mobileDesign; animation-duration: 14s; }
+  .product { animation-name: mobileProduct; animation-duration: 14s; }
+  .engineering { animation-name: mobileEngineering; animation-duration: 14s; }
+  .founder { display: none; }
+}
+
+@media (max-width: 23.374rem) {
+  .engineering { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
   .layer { display: none; }
 }
