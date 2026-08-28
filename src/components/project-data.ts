@@ -37,7 +37,7 @@ export const projects: Project[] = [
     slug: "viled-design-system",
     index: "03",
     tab: "DESIGN SYSTEM",
-    title: "CROSSPLATFORM DESIGN SYSTEM",
+    title: "DESIGN SYSTEMS",
     subtitle: "Cross-platform design infrastructure",
     year: "2025—26",
     role: "Product designer",
