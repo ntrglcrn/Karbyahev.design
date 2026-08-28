@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description: "Karbyshev design",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className={arizona.variable} lang="ru">
       <body className="min-h-screen antialiased">{children}</body>
