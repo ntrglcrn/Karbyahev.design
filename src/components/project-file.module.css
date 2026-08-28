@@ -232,13 +232,13 @@
 }
 
 @media (max-width: 47.999rem) {
-  .section { padding-top: 5rem; padding-bottom: 6rem; }
+  .section { padding-top: 5rem; padding-bottom: 12svh; }
   .stack { margin-top: 5.25rem; }
   .item {
-    position: relative;
-    top: auto;
-    min-height: 0;
-    margin-top: .75rem;
+    position: sticky;
+    top: clamp(3.5rem, 8svh, 4.5rem);
+    min-height: 92svh;
+    margin-top: 0;
     opacity: .85;
     transform: translate3d(0, clamp(2.5rem, 12vw, 4rem), 0) scale(.985);
     transition: opacity 420ms ease, transform 520ms cubic-bezier(.2, .75, .2, 1);
@@ -246,7 +246,7 @@
   .item:first-child { margin-top: 0; }
   .item[data-visible="true"] { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
   .folder,
-  .body { height: auto; min-height: 34rem; }
+  .body { height: calc(100svh - 5rem); min-height: 0; }
   .item[data-tab="1"] .tab { left: 12%; }
   .item[data-tab="2"] .tab { left: 24%; }
   .item[data-tab="3"] .tab { left: 36%; }
@@ -257,7 +257,7 @@
     right: 1.25rem;
     bottom: auto;
     width: calc(100% - 2.5rem);
-    height: 11rem;
+    height: clamp(9.5rem, 24svh, 13rem);
     opacity: .72;
     transform: translate3d(0, 1rem, 0);
   }
@@ -269,8 +269,6 @@
 @media (max-width: 23.374rem) {
   .section { padding-top: 4rem; }
   .stack { margin-top: 4.75rem; }
-  .folder,
-  .body { min-height: 33rem; }
   .tab { width: 8.5rem; padding-inline: 1rem; }
   .body { padding: 1rem; }
   .topline,
@@ -279,7 +277,7 @@
   .content { height: 15.5rem; padding-top: 3.15rem; }
   .title { font-size: clamp(2.65rem, 15vw, 3.5rem); }
   .subtitle { margin-top: .8rem; font-size: .92rem; }
-  .sheet { top: 16rem; right: 1rem; width: calc(100% - 2rem); height: 10.5rem; }
+  .sheet { top: 16rem; right: 1rem; width: calc(100% - 2rem); }
   .meta { right: 1rem; bottom: 1rem; left: 1rem; }
 }
 
