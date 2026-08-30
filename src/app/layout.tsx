@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import "../styles/tokens.css";
 import "./globals.css";
 
 const arizona = localFont({
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className={arizona.variable} lang="ru">
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="type-body-default min-h-screen antialiased">{children}</body>
     </html>
   );
 }

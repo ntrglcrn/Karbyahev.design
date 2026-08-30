@@ -18,9 +18,9 @@ export default function HeroCollaborators() {
         {collaborators.map(([name, className]) => (
           <div className={`${styles.cursor} ${className}`} key={name}>
             <svg viewBox="0 0 18 22" fill="none" aria-hidden="true">
-              <path d="M1.25 1.25 16.1 12.1l-7.15 1.28-3.88 6.2L1.25 1.25Z" fill="currentColor" stroke="#1500e1" strokeWidth="1.4" strokeLinejoin="round" />
+              <path d="M1.25 1.25 16.1 12.1l-7.15 1.28-3.88 6.2L1.25 1.25Z" fill="currentColor" stroke="var(--semantic-color-text-on-light)" strokeWidth="1.4" strokeLinejoin="round" />
             </svg>
-            <span className={styles.label}>{name}</span>
+            <span className={`${styles.label} presence-badge type-label-presence`}>{name}</span>
           </div>
         ))}
       </div>

@@ -7,9 +7,12 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run tokens:check && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "tokens:build": "node scripts/build-design-tokens.mjs",
+    "tokens:validate": "node scripts/build-design-tokens.mjs --validate",
+    "tokens:check": "node scripts/build-design-tokens.mjs --check"
   },
   "dependencies": {
     "next": "16.3.3",

@@ -24,23 +24,23 @@ export default function ProjectFile({ project, order, total }: { project: Projec
   return (
     <article ref={item} className={styles.item} data-tab={order % 4} style={{ zIndex: order + 1 }} aria-labelledby={titleId}>
       <Link
-        className={styles.folder}
+        className={`${styles.folder} focus-ring`}
         data-tone={order % 3}
         href={`/work/${project.slug}`}
         prefetch={false}
         aria-label={`Open ${project.title} case study`}
       >
-        <span className={styles.tab}>{project.tab}</span>
+        <span className={`${styles.tab} type-label-tab`}>{project.tab}</span>
         <span className={styles.body}>
-          <span className={styles.topline}>
+          <span className={`${styles.topline} type-label-metadata`}>
             <span>{project.index} / {String(total).padStart(2, "0")}</span>
             <span className={styles.open}>Open case <span aria-hidden="true">↗</span></span>
           </span>
 
           <span className={styles.content}>
-            <span className={styles.discipline}>{project.categories.join(" · ")}</span>
-            <h2 className={styles.title} id={titleId}>{project.title}</h2>
-            <span className={styles.subtitle}>{project.subtitle}</span>
+            <span className={`${styles.discipline} type-label-metadata`}>{project.categories.join(" · ")}</span>
+            <h2 className={`${styles.title} type-display-project`} id={titleId}>{project.title}</h2>
+            <span className={`${styles.subtitle} type-body-lead`}>{project.subtitle}</span>
           </span>
 
           <span className={styles.sheet} aria-hidden="true">
@@ -51,10 +51,10 @@ export default function ProjectFile({ project, order, total }: { project: Projec
             <span className={styles.sheetFooter}><i /><i /></span>
           </span>
 
-          <span className={styles.meta}>
-            <span><small>Year</small>{project.year}</span>
-            <span><small>Role</small>{project.role}</span>
-            <span><small>Platform</small>{project.platform}</span>
+          <span className={`${styles.meta} type-label-metadata`}>
+            <span><small className="type-caption-metadata opacity-subdued">Year</small>{project.year}</span>
+            <span><small className="type-caption-metadata opacity-subdued">Role</small>{project.role}</span>
+            <span><small className="type-caption-metadata opacity-subdued">Platform</small>{project.platform}</span>
           </span>
         </span>
       </Link>

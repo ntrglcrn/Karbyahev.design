@@ -24,84 +24,76 @@
   width: 48px;
   height: 60px;
   flex: none;
-  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.14));
+  filter: drop-shadow(0 var(--semantic-border-hairline) var(--semantic-border-hairline) var(--semantic-color-shadow-cursor));
 }
 
 .label {
-  margin: 39px 0 0 -6px;
-  border: 1px solid rgb(255 255 255 / 0.28);
-  border-radius: 999px;
-  padding: 6px 18px 9px;
-  color: #1500e1;
-  font-size: 27px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.035em;
+  margin: 40px 0 0 -6px;
+  color: var(--semantic-color-text-on-light);
   opacity: 1;
-  box-shadow: 0 2px 6px rgb(21 0 225 / 0.1);
 }
 
 .design {
-  color: #c8ff00;
+  color: var(--semantic-color-collaborator-design);
   animation-duration: 15.6s;
   animation-name: design;
   animation-timing-function: cubic-bezier(0.42, 0.06, 0.18, 1);
 }
 
-.design .label { background: #c8ff00; }
+.design .label { background: var(--semantic-color-collaborator-design); }
 
 .product {
-  color: #ffadad;
+  color: var(--semantic-color-collaborator-product);
   animation-duration: 14.8s;
   animation-name: product;
   animation-timing-function: cubic-bezier(0.3, 0.04, 0.14, 1);
 }
 
-.product .label { background: #ffadad; }
+.product .label { background: var(--semantic-color-collaborator-product); }
 
 .engineering {
-  color: #86eaff;
+  color: var(--semantic-color-collaborator-engineering);
   animation-duration: 15.9s;
   animation-name: engineering;
   animation-timing-function: cubic-bezier(0.38, 0.08, 0.2, 1);
 }
 
-.engineering .label { background: #86eaff; }
+.engineering .label { background: var(--semantic-color-collaborator-engineering); }
 
 .frontend {
-  color: #86eaff;
+  color: var(--semantic-color-collaborator-frontend);
   animation: frontend 16.4s cubic-bezier(0.34, 0.03, 0.12, 1) infinite;
 }
 
-.frontend .label { background: #86eaff; }
+.frontend .label { background: var(--semantic-color-collaborator-frontend); }
 
 .qa {
-  color: #ffadad;
+  color: var(--semantic-color-collaborator-qa);
   animation: qa 15.2s cubic-bezier(0.4, 0.05, 0.16, 1) infinite;
 }
 
-.qa .label { background: #ffadad; }
+.qa .label { background: var(--semantic-color-collaborator-qa); }
 
 .android {
-  color: #c8ff00;
+  color: var(--semantic-color-collaborator-android);
   animation: android 16.1s cubic-bezier(0.32, 0.04, 0.15, 1) infinite;
 }
 
-.android .label { background: #c8ff00; }
+.android .label { background: var(--semantic-color-collaborator-android); }
 
 .backend {
-  color: #e5c6ff;
+  color: var(--semantic-color-collaborator-backend);
   animation: backend 15.7s cubic-bezier(0.36, 0.07, 0.18, 1) infinite;
 }
 
-.backend .label { background: #e5c6ff; }
+.backend .label { background: var(--semantic-color-collaborator-backend); }
 
 .analytics {
-  color: #e5c6ff;
+  color: var(--semantic-color-collaborator-analytics);
   animation: analytics 16.7s cubic-bezier(0.3, 0.05, 0.14, 1) infinite;
 }
 
-.analytics .label { background: #e5c6ff; }
+.analytics .label { background: var(--semantic-color-collaborator-analytics); }
 
 @keyframes design {
   0%, 5% { opacity: 0; transform: translate3d(-10vw, 18vh, 0); }
@@ -203,8 +195,8 @@
 
 @media (max-width: 39.999rem) {
   .stage { transform: none; }
-  .cursor svg { width: 39px; height: 48px; }
-  .label { margin-top: 30px; padding: 6px 15px; font-size: 24px; }
+  .cursor svg { width: 40px; height: 48px; }
+  .label { margin-top: 30px; }
   .design { animation-name: mobileDesign; animation-duration: 14s; }
   .product { animation-name: mobileProduct; animation-duration: 14s; }
   .engineering { animation-name: mobileEngineering; animation-duration: 14s; }

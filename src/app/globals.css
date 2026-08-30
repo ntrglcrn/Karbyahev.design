@@ -1,52 +1,10 @@
-@import "tailwindcss";
-
-:root {
-  --background: #1500e1;
-  --foreground: #ffffff;
-  --muted: #d9d7ff;
-  --border: rgb(255 255 255 / 0.35);
-  --accent: #c8ff00;
-  --page-gutter: 1rem;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
-  --color-accent: var(--accent);
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Inter, Helvetica, sans-serif;
-  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  line-height: 1.5;
-}
-
-h1 {
-  font-family: var(--font-arizona), Georgia, serif;
-  font-size: clamp(3.5rem, 10vw, 8rem);
-  font-weight: 700;
-  line-height: 0.88;
-  letter-spacing: -0.065em;
 }
 
 .container {
   width: 100%;
   max-width: none;
   padding-inline: var(--page-gutter);
-}
-
-@media (min-width: 48rem) {
-  :root {
-    --page-gutter: 1.25rem;
-  }
-}
-
-@media (min-width: 80rem) {
-  :root {
-    --page-gutter: 1.5rem;
-  }
 }

@@ -12,21 +12,21 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   if (!project) notFound();
 
   return (
-    <main className="min-h-screen bg-[#f5f3ed] px-[var(--page-gutter)] py-6 text-[#1500e1]">
-      <nav className="flex justify-between border-t border-current pt-2 text-xs font-semibold uppercase tracking-[.18em]">
-        <Link className="focus-visible:outline-2 focus-visible:outline-offset-4" href="/">← Project files</Link>
+    <main className="min-h-screen bg-surface-file px-page-gutter py-stack-lg text-ink-on-light">
+      <nav className="type-label-eyebrow border-top-hairline flex justify-between border-current pt-stack-sm uppercase">
+        <Link className="focus-ring" href="/">← Project files</Link>
         <span>{project.index} / {String(projects.length).padStart(2, "0")}</span>
       </nav>
       <article className="flex min-h-[calc(100svh-5rem)] flex-col justify-between pt-[14svh]">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[.18em]">{project.categories.join(" · ")}</p>
-          <h1 className="mt-5 max-w-[12ch] text-[clamp(4rem,13vw,13rem)] leading-[.78]">{project.title}</h1>
-          <p className="mt-6 text-[clamp(1.25rem,2vw,2rem)] tracking-[-.04em]">{project.subtitle}</p>
+          <p className="type-label-eyebrow uppercase">{project.categories.join(" · ")}</p>
+          <h1 className="type-display-case measure-display mt-stack">{project.title}</h1>
+          <p className="type-body-intro mt-stack-lg">{project.subtitle}</p>
         </div>
-        <dl className="grid grid-cols-2 gap-4 border-t border-current py-4 text-xs uppercase tracking-[.14em] md:grid-cols-3">
-          <div><dt className="opacity-55">Year</dt><dd className="mt-1">{project.year}</dd></div>
-          <div><dt className="opacity-55">Role</dt><dd className="mt-1">{project.role}</dd></div>
-          <div><dt className="opacity-55">Platform</dt><dd className="mt-1">{project.platform}</dd></div>
+        <dl className="type-label-metadata border-top-hairline grid grid-cols-2 gap-grid border-current py-stack-md uppercase md:grid-cols-3">
+          <div><dt className="opacity-subdued">Year</dt><dd className="mt-stack-xs">{project.year}</dd></div>
+          <div><dt className="opacity-subdued">Role</dt><dd className="mt-stack-xs">{project.role}</dd></div>
+          <div><dt className="opacity-subdued">Platform</dt><dd className="mt-stack-xs">{project.platform}</dd></div>
         </dl>
       </article>
     </main>

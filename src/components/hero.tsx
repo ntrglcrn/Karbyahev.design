@@ -52,8 +52,8 @@ export default function Hero() {
     let grid = new Float32Array();
     let isVisible = false;
     let lastDraw = 0;
-    let foreground = "#fff";
-    let accent = "#c8ff00";
+    let foreground = "";
+    let accent = "";
     let mobile = false;
     let fieldCount = fields.length;
     let pointerTargetX = 0;
@@ -181,8 +181,8 @@ export default function Hero() {
       maxAlpha = mobile ? dotField.mobile.maxAlpha : dotField.desktop.maxAlpha;
       frameTime = mobile ? dotField.mobile.frameTime : dotField.desktop.frameTime;
       const styles = getComputedStyle(document.documentElement);
-      foreground = styles.getPropertyValue("--foreground").trim() || foreground;
-      accent = styles.getPropertyValue("--accent").trim() || accent;
+      foreground = styles.getPropertyValue("--foreground").trim();
+      accent = styles.getPropertyValue("--accent").trim();
       const shortestSide = Math.min(width, height);
       fields.forEach((field, index) => {
         const radius = field.radius * shortestSide;
@@ -323,20 +323,20 @@ export default function Hero() {
 
   return (
     <section ref={hero} className="relative motion-reduce:h-auto">
-      <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden py-12 motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] motion-reduce:flex-col motion-reduce:items-stretch">
+      <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden py-section motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] motion-reduce:flex-col motion-reduce:items-stretch">
         <canvas ref={canvas} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />
         <div ref={collaborators} className="absolute inset-0 z-20">
           <HeroCollaborators />
         </div>
-        <span ref={pointerLabel} className="pointer-events-none absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border border-[rgb(255_255_255_/_0.28)] bg-foreground px-[18px] pt-[6px] pb-[9px] text-[27px] font-semibold leading-none tracking-[0.035em] text-background opacity-0 shadow-[0_2px_6px_rgb(21_0_225_/_0.1)] will-change-transform" aria-hidden="true">
+        <span ref={pointerLabel} className="presence-badge type-label-presence pointer-events-none absolute left-0 top-0 z-20 whitespace-nowrap bg-foreground text-background opacity-0 will-change-transform" aria-hidden="true">
           Guest
         </span>
-        <div ref={composition} className="container relative z-10 w-full -translate-y-[3svh] will-change-transform motion-reduce:py-12">
-          <p className="mb-8 text-xs font-medium uppercase tracking-[0.18em] text-accent sm:mb-12">
+        <div ref={composition} className="container relative z-10 w-full -translate-y-[3svh] will-change-transform motion-reduce:py-section">
+          <p className="type-label-eyebrow mb-content uppercase text-accent sm:mb-section">
             ALEXANDR KARBYSHEV
           </p>
           <h1
-            className="flex flex-col text-[clamp(3.55rem,17vw,5.5rem)] font-bold leading-[0.88] tracking-[-0.075em] md:text-[clamp(4.8rem,11.3vw,10.8rem)] md:leading-[0.84] min-[192rem]:origin-left min-[192rem]:scale-x-150 min-[192rem]:text-[clamp(10.8rem,18vw,24rem)]"
+            className="type-display-hero flex flex-col ultra-wide:origin-left ultra-wide:scale-x-150"
             aria-label="Product Designer Building Digital Commerce and SaaS"
           >
             {lines.map(({ text: line, initialClass, travelX, travelY, scaleDelta }, index) => (

@@ -1,0 +1,418 @@
+/* DO NOT EDIT — generated from design-system/tokens.json */
+@import "tailwindcss";
+:root {
+  --primitive-border-width-focus: 4px;
+  --primitive-border-width-hairline: 1px;
+  --primitive-breakpoint-compact: 23.375rem;
+  --primitive-breakpoint-medium: 48rem;
+  --primitive-breakpoint-mobile: 40rem;
+  --primitive-breakpoint-laptop: 64rem;
+  --primitive-breakpoint-wide: 80rem;
+  --primitive-breakpoint-ultra-wide: 192rem;
+  --primitive-color-accent-coral: #FFADAD;
+  --primitive-color-accent-cyan: #86EAFF;
+  --primitive-color-accent-lime: #C8FF00;
+  --primitive-color-accent-lilac: #E5C6FF;
+  --primitive-color-brand500: #1500E1;
+  --primitive-color-brand-alpha06: rgb(21 0 225 / 0.055);
+  --primitive-color-brand-alpha10: rgb(21 0 225 / 0.1);
+  --primitive-color-brand-alpha18: rgb(21 0 225 / 0.18);
+  --primitive-color-brand-alpha32: rgb(21 0 225 / 0.32);
+  --primitive-color-black-alpha14: rgb(0 0 0 / 0.14);
+  --primitive-color-cool100: #E5E7DF;
+  --primitive-color-neutral0: #FFFFFF;
+  --primitive-color-paper100: #F5F3ED;
+  --primitive-color-violet100: #E8E7F6;
+  --primitive-color-violet200: #D9D7FF;
+  --primitive-color-white-alpha28: rgb(255 255 255 / 0.28);
+  --primitive-color-white-alpha35: rgb(255 255 255 / 0.35);
+  --primitive-font-family-display: var(--font-arizona), Georgia, serif;
+  --primitive-font-family-sans: Inter, Helvetica, sans-serif;
+  --primitive-font-size-10: 10px;
+  --primitive-font-size-12: 12px;
+  --primitive-font-size-14: 14px;
+  --primitive-font-size-16: 16px;
+  --primitive-font-size-18: 18px;
+  --primitive-font-size-20: 20px;
+  --primitive-font-size-24: 24px;
+  --primitive-font-size-28: 28px;
+  --primitive-font-size-32: 32px;
+  --primitive-font-size-body: clamp(16px, 1.25vw, 18px);
+  --primitive-font-size-display-base: clamp(56px, 10vw, 128px);
+  --primitive-font-size-contact: clamp(14px, 1.1vw, 16px);
+  --primitive-font-size-cta: clamp(68px, 13vw, 224px);
+  --primitive-font-size-cta-mobile: clamp(54px, 17.5vw, 84px);
+  --primitive-font-size-intro: clamp(20px, 2vw, 32px);
+  --primitive-font-size-lead: clamp(16px, 1.5vw, 22px);
+  --primitive-font-size-project-title: clamp(64px, 9vw, 144px);
+  --primitive-font-size-project-title-compact: clamp(42px, 15vw, 56px);
+  --primitive-font-size-project-title-laptop: clamp(52px, 9vw, 104px);
+  --primitive-font-size-project-title-mobile: clamp(48px, 15vw, 74px);
+  --primitive-font-size-sequence: clamp(80px, 18vw, 288px);
+  --primitive-font-size-sequence-mobile: clamp(64px, 22vw, 112px);
+  --primitive-font-size-sequence-reduced: clamp(32px, 7vw, 72px);
+  --primitive-font-weight-bold: 700;
+  --primitive-font-weight-medium: 500;
+  --primitive-font-weight-regular: 400;
+  --primitive-font-weight-semibold: 600;
+  --primitive-letter-spacing-display-tight: -0.075em;
+  --primitive-letter-spacing-eyebrow: 0.18em;
+  --primitive-letter-spacing-intro-tight: -0.04em;
+  --primitive-letter-spacing-metadata: 0.16em;
+  --primitive-letter-spacing-normal: normal;
+  --primitive-letter-spacing-presence: 0.035em;
+  --primitive-letter-spacing-project-title: -10px;
+  --primitive-letter-spacing-text-tight: -0.025em;
+  --primitive-line-height-body: 1.5;
+  --primitive-line-height-display76: 0.76;
+  --primitive-line-height-display77: 0.77;
+  --primitive-line-height-display78: 0.78;
+  --primitive-line-height-display82: 0.82;
+  --primitive-line-height-display84: 0.84;
+  --primitive-line-height-display88: 0.88;
+  --primitive-line-height-label: 1.333333;
+  --primitive-line-height-none: 1;
+  --primitive-measure-display: 12ch;
+  --primitive-media-reduced-motion: (prefers-reduced-motion: reduce);
+  --primitive-radius-surface: 16px;
+  --primitive-opacity-subdued: 0.55;
+  --primitive-size-touch-target: 44px;
+  --primitive-space-2: 2px;
+  --primitive-space-4: 4px;
+  --primitive-space-6: 6px;
+  --primitive-space-8: 8px;
+  --primitive-space-10: 10px;
+  --primitive-space-12: 12px;
+  --primitive-space-16: 16px;
+  --primitive-space-18: 18px;
+  --primitive-space-20: 20px;
+  --primitive-space-24: 24px;
+  --primitive-space-32: 32px;
+  --primitive-space-40: 40px;
+  --primitive-space-48: 48px;
+  --primitive-space-64: 64px;
+  --primitive-space-80: 80px;
+  --primitive-space-96: 96px;
+  --primitive-space-112: 112px;
+  --primitive-space-128: 128px;
+  --primitive-space-144: 144px;
+  --primitive-space-160: 160px;
+  --semantic-border-focus-offset: var(--primitive-space-6);
+  --semantic-border-focus-width: var(--primitive-border-width-focus);
+  --semantic-border-hairline: var(--primitive-border-width-hairline);
+  --semantic-color-accent-primary: var(--primitive-color-accent-lime);
+  --semantic-color-background-primary: var(--primitive-color-brand500);
+  --semantic-color-border-on-brand: var(--primitive-color-white-alpha35);
+  --semantic-color-border-on-brand-control: var(--primitive-color-white-alpha28);
+  --semantic-color-border-on-light: var(--primitive-color-brand-alpha18);
+  --semantic-color-border-on-light-strong: var(--primitive-color-brand-alpha32);
+  --semantic-color-collaborator-analytics: var(--primitive-color-accent-lilac);
+  --semantic-color-collaborator-android: var(--primitive-color-accent-lime);
+  --semantic-color-collaborator-backend: var(--primitive-color-accent-lilac);
+  --semantic-color-collaborator-design: var(--primitive-color-accent-lime);
+  --semantic-color-collaborator-engineering: var(--primitive-color-accent-cyan);
+  --semantic-color-collaborator-frontend: var(--primitive-color-accent-cyan);
+  --semantic-color-collaborator-product: var(--primitive-color-accent-coral);
+  --semantic-color-collaborator-qa: var(--primitive-color-accent-coral);
+  --semantic-color-shadow-cursor: var(--primitive-color-black-alpha14);
+  --semantic-color-shadow-floating: var(--primitive-color-brand-alpha10);
+  --semantic-color-surface-file: var(--primitive-color-paper100);
+  --semantic-color-surface-file-cool: var(--primitive-color-violet100);
+  --semantic-color-surface-file-muted: var(--primitive-color-cool100);
+  --semantic-color-surface-sheet: var(--primitive-color-neutral0);
+  --semantic-color-text-muted: var(--primitive-color-violet200);
+  --semantic-color-text-on-brand: var(--primitive-color-neutral0);
+  --semantic-color-text-on-light: var(--primitive-color-brand500);
+  --semantic-color-texture-file-grid: var(--primitive-color-brand-alpha06);
+  --semantic-layout-grid-gap: var(--primitive-space-16);
+  --semantic-layout-measure-display: var(--primitive-measure-display);
+  --semantic-layout-page-gutter-default: var(--primitive-space-16);
+  --semantic-radius-control: var(--primitive-radius-surface);
+  --semantic-radius-surface: var(--primitive-radius-surface);
+  --semantic-opacity-subdued: var(--primitive-opacity-subdued);
+  --semantic-size-touch-target: var(--primitive-size-touch-target);
+  --semantic-shadow-floating-blur: var(--primitive-space-6);
+  --semantic-shadow-floating-offset-y: var(--primitive-space-2);
+  --semantic-shadow-sheet-blur: var(--primitive-space-48);
+  --semantic-shadow-sheet-offset-y: var(--primitive-space-20);
+  --semantic-spacing-component-gap: var(--primitive-space-12);
+  --semantic-spacing-content-gap: var(--primitive-space-32);
+  --semantic-spacing-control-block-end: var(--primitive-space-10);
+  --semantic-spacing-control-block-start: var(--primitive-space-6);
+  --semantic-spacing-control-inline: var(--primitive-space-18);
+  --semantic-spacing-section-inset: var(--primitive-space-48);
+  --semantic-spacing-divider-offset: var(--primitive-space-12);
+  --semantic-spacing-surface-inset-compact: var(--primitive-space-20);
+  --semantic-spacing-surface-inset-wide: var(--primitive-space-32);
+  --semantic-spacing-stack-large: var(--primitive-space-24);
+  --semantic-spacing-stack-medium: var(--primitive-space-16);
+  --semantic-spacing-stack-regular: var(--primitive-space-20);
+  --semantic-spacing-stack-small: var(--primitive-space-8);
+  --semantic-spacing-stack-xsmall: var(--primitive-space-4);
+  --semantic-typography-body-default-default-font-family: var(--primitive-font-family-sans);
+  --semantic-typography-body-default-default-font-size: var(--primitive-font-size-body);
+  --semantic-typography-body-default-default-font-weight: var(--primitive-font-weight-regular);
+  --semantic-typography-body-default-default-letter-spacing: var(--primitive-letter-spacing-normal);
+  --semantic-typography-body-default-default-line-height: var(--primitive-line-height-body);
+  --semantic-typography-body-intro-default-font-family: var(--primitive-font-family-sans);
+  --semantic-typography-body-intro-default-font-size: var(--primitive-font-size-intro);
+  --semantic-typography-body-intro-default-font-weight: var(--primitive-font-weight-regular);
+  --semantic-typography-body-intro-default-letter-spacing: var(--primitive-letter-spacing-intro-tight);
+  --semantic-typography-body-intro-default-line-height: var(--primitive-line-height-body);
+  --semantic-typography-body-lead-default-font-family: var(--primitive-font-family-sans);
+  --semantic-typography-body-lead-default-font-size: var(--primitive-font-size-lead);
+  --semantic-typography-body-lead-default-font-weight: var(--primitive-font-weight-regular);
+  --semantic-typography-body-lead-default-letter-spacing: var(--primitive-letter-spacing-text-tight);
+  --semantic-typography-body-lead-default-line-height: var(--primitive-line-height-body);
+  --semantic-typography-caption-metadata-default-font-family: var(--primitive-font-family-sans);
+  --semantic-typography-caption-metadata-default-font-size: var(--primitive-font-size-10);
+  --semantic-typography-caption-metadata-default-font-weight: var(--primitive-font-weight-semibold);
+  --semantic-typography-caption-metadata-default-letter-spacing: var(--primitive-letter-spacing-metadata);
+  --semantic-typography-caption-metadata-default-line-height: var(--primitive-line-height-body);
+  --semantic-typography-display-case-default-font-family: var(--primitive-font-family-display);
+  --semantic-typography-display-case-default-font-size: var(--primitive-font-size-display-base);
+  --semantic-typography-display-case-default-font-weight: var(--primitive-font-weight-bold);
+  --semantic-typography-display-case-default-letter-spacing: var(--primitive-letter-spacing-display-tight);
+  --semantic-typography-display-case-default-line-height: var(--primitive-line-height-display88);
+  --semantic-typography-display-cta-default-font-family: var(--primitive-font-family-display);
+  --semantic-typography-display-cta-default-font-size: var(--primitive-font-size-cta);
+  --semantic-typography-display-cta-default-font-weight: var(--primitive-font-weight-bold);
+  --semantic-typography-display-cta-default-letter-spacing: var(--primitive-letter-spacing-display-tight);
+  --semantic-typography-display-cta-default-line-height: var(--primitive-line-height-display76);
+  --semantic-typography-display-hero-default-font-family: var(--primitive-font-family-display);
+  --semantic-typography-display-hero-default-font-size: var(--primitive-font-size-display-base);
+  --semantic-typography-display-hero-default-font-weight: var(--primitive-font-weight-bold);
+  --semantic-typography-display-hero-default-letter-spacing: var(--primitive-letter-spacing-display-tight);
+  --semantic-typography-display-hero-default-line-height: var(--primitive-line-height-display88);
+  --semantic-typography-display-project-default-font-family: var(--primitive-font-family-display);
+  --semantic-typography-display-project-default-font-size: var(--primitive-font-size-project-title);
+  --semantic-typography-display-project-default-font-weight: var(--primitive-font-weight-bold);
+  --semantic-typography-display-project-default-letter-spacing: var(--primitive-letter-spacing-project-title);
+  --semantic-typography-display-project-default-line-height: var(--primitive-line-height-display77);
+  --semantic-typography-display-sequence-default-font-family: var(--primitive-font-family-display);
+  --semantic-typography-display-sequence-default-font-size: var(--primitive-font-size-sequence);
+  --semantic-typography-display-sequence-default-font-weight: var(--primitive-font-weight-bold);
+  --semantic-typography-display-sequence-default-letter-spacing: var(--primitive-letter-spacing-display-tight);
+  --semantic-typography-display-sequence-default-line-height: var(--primitive-line-height-display76);
+  --semantic-typography-label-eyebrow-default-font-family: var(--primitive-font-family-sans);
+  --semantic-typography-label-eyebrow-default-font-size: var(--primitive-font-size-12);
+  --semantic-typography-label-eyebrow-default-font-weight: var(--primitive-font-weight-semibold);
+  --semantic-typography-label-eyebrow-default-letter-spacing: var(--primitive-letter-spacing-eyebrow);
+  --semantic-typography-label-eyebrow-default-line-height: var(--primitive-line-height-label);
+  --semantic-typography-label-metadata-default-font-family: var(--primitive-font-family-sans);
+  --semantic-typography-label-metadata-default-font-size: var(--primitive-font-size-12);
+  --semantic-typography-label-metadata-default-font-weight: var(--primitive-font-weight-semibold);
+  --semantic-typography-label-metadata-default-letter-spacing: var(--primitive-letter-spacing-metadata);
+  --semantic-typography-label-metadata-default-line-height: var(--primitive-line-height-body);
+  --semantic-typography-label-presence-default-font-family: var(--primitive-font-family-sans);
+  --semantic-typography-label-presence-default-font-size: var(--primitive-font-size-28);
+  --semantic-typography-label-presence-default-font-weight: var(--primitive-font-weight-semibold);
+  --semantic-typography-label-presence-default-letter-spacing: var(--primitive-letter-spacing-presence);
+  --semantic-typography-label-presence-default-line-height: var(--primitive-line-height-none);
+  --semantic-typography-label-tab-default-font-family: var(--primitive-font-family-sans);
+  --semantic-typography-label-tab-default-font-size: var(--primitive-font-size-12);
+  --semantic-typography-label-tab-default-font-weight: var(--primitive-font-weight-bold);
+  --semantic-typography-label-tab-default-letter-spacing: var(--primitive-letter-spacing-metadata);
+  --semantic-typography-label-tab-default-line-height: var(--primitive-line-height-body);
+  --semantic-typography-link-contact-default-font-family: var(--primitive-font-family-sans);
+  --semantic-typography-link-contact-default-font-size: var(--primitive-font-size-contact);
+  --semantic-typography-link-contact-default-font-weight: var(--primitive-font-weight-regular);
+  --semantic-typography-link-contact-default-letter-spacing: var(--primitive-letter-spacing-normal);
+  --semantic-typography-link-contact-default-line-height: var(--primitive-line-height-body);
+  --background: var(--semantic-color-background-primary);
+  --foreground: var(--semantic-color-text-on-brand);
+  --muted: var(--semantic-color-text-muted);
+  --border: var(--semantic-color-border-on-brand);
+  --accent: var(--semantic-color-accent-primary);
+  --page-gutter: var(--semantic-layout-page-gutter-default);
+}
+@media (min-width: 48rem) {
+  :root { --page-gutter: var(--primitive-space-20); }
+}
+@media (min-width: 80rem) {
+  :root { --page-gutter: var(--primitive-space-24); }
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-surface-file: var(--semantic-color-surface-file);
+  --color-surface-file-cool: var(--semantic-color-surface-file-cool);
+  --color-surface-file-muted: var(--semantic-color-surface-file-muted);
+  --color-surface-sheet: var(--semantic-color-surface-sheet);
+  --color-ink-on-light: var(--semantic-color-text-on-light);
+  --color-collaborator-design: var(--semantic-color-collaborator-design);
+  --color-collaborator-product: var(--semantic-color-collaborator-product);
+  --color-collaborator-engineering: var(--semantic-color-collaborator-engineering);
+  --spacing-page-gutter: var(--page-gutter);
+  --spacing-grid: var(--semantic-layout-grid-gap);
+  --spacing-section: var(--semantic-spacing-section-inset);
+  --spacing-content: var(--semantic-spacing-content-gap);
+  --spacing-control-inline: var(--semantic-spacing-control-inline);
+  --spacing-control-start: var(--semantic-spacing-control-block-start);
+  --spacing-control-end: var(--semantic-spacing-control-block-end);
+  --spacing-stack-xs: var(--semantic-spacing-stack-xsmall);
+  --spacing-stack-sm: var(--semantic-spacing-stack-small);
+  --spacing-stack-md: var(--semantic-spacing-stack-medium);
+  --spacing-stack: var(--semantic-spacing-stack-regular);
+  --spacing-stack-lg: var(--semantic-spacing-stack-large);
+  --radius-surface: var(--semantic-radius-surface);
+  --radius-control: var(--semantic-radius-control);
+  --font-display: var(--primitive-font-family-display);
+  --font-sans: var(--primitive-font-family-sans);
+  --breakpoint-ultra-wide: 192rem;
+}
+.type-body-default {
+  font-family: var(--primitive-font-family-sans);
+  font-size: var(--primitive-font-size-body);
+  font-weight: var(--primitive-font-weight-regular);
+  letter-spacing: var(--primitive-letter-spacing-normal);
+  line-height: var(--primitive-line-height-body);
+}
+.type-body-intro {
+  font-family: var(--primitive-font-family-sans);
+  font-size: var(--primitive-font-size-intro);
+  font-weight: var(--primitive-font-weight-regular);
+  letter-spacing: var(--primitive-letter-spacing-intro-tight);
+  line-height: var(--primitive-line-height-body);
+}
+.type-body-lead {
+  font-family: var(--primitive-font-family-sans);
+  font-size: var(--primitive-font-size-lead);
+  font-weight: var(--primitive-font-weight-regular);
+  letter-spacing: var(--primitive-letter-spacing-text-tight);
+  line-height: var(--primitive-line-height-body);
+}
+.type-caption-metadata {
+  font-family: var(--primitive-font-family-sans);
+  font-size: var(--primitive-font-size-10);
+  font-weight: var(--primitive-font-weight-semibold);
+  letter-spacing: var(--primitive-letter-spacing-metadata);
+  line-height: var(--primitive-line-height-body);
+}
+.type-display-case {
+  font-family: var(--primitive-font-family-display);
+  font-size: var(--primitive-font-size-display-base);
+  font-weight: var(--primitive-font-weight-bold);
+  letter-spacing: var(--primitive-letter-spacing-display-tight);
+  line-height: var(--primitive-line-height-display88);
+}
+.type-display-cta {
+  font-family: var(--primitive-font-family-display);
+  font-size: var(--primitive-font-size-cta);
+  font-weight: var(--primitive-font-weight-bold);
+  letter-spacing: var(--primitive-letter-spacing-display-tight);
+  line-height: var(--primitive-line-height-display76);
+}
+@media (width < 48rem) {
+  .type-display-cta {
+    font-size: var(--primitive-font-size-cta-mobile);
+    line-height: var(--primitive-line-height-display82);
+  }
+}
+.type-display-hero {
+  font-family: var(--primitive-font-family-display);
+  font-size: var(--primitive-font-size-display-base);
+  font-weight: var(--primitive-font-weight-bold);
+  letter-spacing: var(--primitive-letter-spacing-display-tight);
+  line-height: var(--primitive-line-height-display88);
+}
+.type-display-project {
+  font-family: var(--primitive-font-family-display);
+  font-size: var(--primitive-font-size-project-title);
+  font-weight: var(--primitive-font-weight-bold);
+  letter-spacing: var(--primitive-letter-spacing-project-title);
+  line-height: var(--primitive-line-height-display77);
+}
+@media (width < 64rem) {
+  .type-display-project {
+    font-size: var(--primitive-font-size-project-title-laptop);
+  }
+}
+@media (width < 48rem) {
+  .type-display-project {
+    font-size: var(--primitive-font-size-project-title-mobile);
+  }
+}
+@media (width < 23.375rem) {
+  .type-display-project {
+    font-size: var(--primitive-font-size-project-title-compact);
+  }
+}
+.type-display-sequence {
+  font-family: var(--primitive-font-family-display);
+  font-size: var(--primitive-font-size-sequence);
+  font-weight: var(--primitive-font-weight-bold);
+  letter-spacing: var(--primitive-letter-spacing-display-tight);
+  line-height: var(--primitive-line-height-display76);
+}
+@media (width < 48rem) {
+  .type-display-sequence {
+    font-size: var(--primitive-font-size-sequence-mobile);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .type-display-sequence {
+    font-size: var(--primitive-font-size-sequence-reduced);
+  }
+}
+.type-label-eyebrow {
+  font-family: var(--primitive-font-family-sans);
+  font-size: var(--primitive-font-size-12);
+  font-weight: var(--primitive-font-weight-semibold);
+  letter-spacing: var(--primitive-letter-spacing-eyebrow);
+  line-height: var(--primitive-line-height-label);
+}
+.type-label-metadata {
+  font-family: var(--primitive-font-family-sans);
+  font-size: var(--primitive-font-size-12);
+  font-weight: var(--primitive-font-weight-semibold);
+  letter-spacing: var(--primitive-letter-spacing-metadata);
+  line-height: var(--primitive-line-height-body);
+}
+@media (width < 23.375rem) {
+  .type-label-metadata {
+    font-size: var(--primitive-font-size-10);
+  }
+}
+.type-label-presence {
+  font-family: var(--primitive-font-family-sans);
+  font-size: var(--primitive-font-size-28);
+  font-weight: var(--primitive-font-weight-semibold);
+  letter-spacing: var(--primitive-letter-spacing-presence);
+  line-height: var(--primitive-line-height-none);
+}
+@media (width < 40rem) {
+  .type-label-presence {
+    font-size: var(--primitive-font-size-24);
+  }
+}
+.type-label-tab {
+  font-family: var(--primitive-font-family-sans);
+  font-size: var(--primitive-font-size-12);
+  font-weight: var(--primitive-font-weight-bold);
+  letter-spacing: var(--primitive-letter-spacing-metadata);
+  line-height: var(--primitive-line-height-body);
+}
+.type-link-contact {
+  font-family: var(--primitive-font-family-sans);
+  font-size: var(--primitive-font-size-contact);
+  font-weight: var(--primitive-font-weight-regular);
+  letter-spacing: var(--primitive-letter-spacing-normal);
+  line-height: var(--primitive-line-height-body);
+}
+.presence-badge {
+  border: var(--semantic-border-hairline) solid var(--semantic-color-border-on-brand-control);
+  border-radius: var(--semantic-radius-control);
+  padding: var(--semantic-spacing-control-block-start) var(--semantic-spacing-control-inline) var(--semantic-spacing-control-block-end);
+  box-shadow: 0 var(--semantic-shadow-floating-offset-y) var(--semantic-shadow-floating-blur) var(--semantic-color-shadow-floating);
+}
+.opacity-subdued { opacity: var(--semantic-opacity-subdued); }
+.measure-display { max-width: var(--semantic-layout-measure-display); }
+.border-top-hairline { border-top: var(--semantic-border-hairline) solid currentColor; }
+.focus-ring:focus-visible {
+  outline: var(--semantic-border-focus-width) solid var(--accent);
+  outline-offset: var(--semantic-border-focus-offset);
+}

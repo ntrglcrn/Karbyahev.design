@@ -68,7 +68,7 @@ export default function FinalScene() {
       <div className={styles.sticky}>
         <div className={styles.sequence} role="img" aria-label="Design, product, build, ship">
           {stages.map((stage, index) => (
-            <span key={stage} className={styles.word} data-stage={index} aria-hidden="true">
+            <span key={stage} className={`${styles.word} type-display-sequence`} data-stage={index} aria-hidden="true">
               {stage}
             </span>
           ))}
@@ -77,15 +77,15 @@ export default function FinalScene() {
         <div className={styles.finale}>
           <div className={styles.ctaStage}>
             <HeroCollaborators />
-            <a ref={cta} className={styles.cta} href="https://t.me/ntrglcrn">
+            <a ref={cta} className={`${styles.cta} type-display-cta focus-ring`} href="https://t.me/ntrglcrn">
               <span>LET’S BUILD</span>
               <span>SOMETHING.</span>
             </a>
           </div>
           <nav className={styles.contacts} aria-label="Contact links">
-            <a href="mailto:alexandrkarb@gmail.com"><small>Email</small><span>alexandrkarb@gmail.com ↗</span></a>
-            <a href="https://instagram.com/ntrglcrnn"><small>Instagram</small><span>@ntrglcrnn ↗</span></a>
-            <a href="https://t.me/ntrglcrn"><small>Telegram</small><span>@ntrglcrn ↗</span></a>
+            <a className="focus-ring" href="mailto:alexandrkarb@gmail.com"><small className="type-caption-metadata">Email</small><span className="type-link-contact">alexandrkarb@gmail.com ↗</span></a>
+            <a className="focus-ring" href="https://instagram.com/ntrglcrnn"><small className="type-caption-metadata">Instagram</small><span className="type-link-contact">@ntrglcrnn ↗</span></a>
+            <a className="focus-ring" href="https://t.me/ntrglcrn"><small className="type-caption-metadata">Telegram</small><span className="type-link-contact">@ntrglcrn ↗</span></a>
           </nav>
         </div>
       </div>
