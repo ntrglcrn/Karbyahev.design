@@ -1,5 +1,9 @@
 .scene {
   --progress: 0;
+  --stage-0: 0;
+  --stage-1: 0;
+  --stage-2: 0;
+  --stage-3: 0;
   position: relative;
   height: 320svh;
   margin-top: clamp(3rem, 8svh, 7rem);
@@ -21,8 +25,7 @@
 }
 
 .word {
-  --start: 0;
-  --local: clamp(0, calc((var(--progress) - var(--start)) / .2), 1);
+  --local: var(--stage-0);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -38,10 +41,9 @@
   will-change: transform, opacity;
 }
 
-.word[data-stage="0"] { --start: -.1; }
-.word[data-stage="1"] { --start: .1; }
-.word[data-stage="2"] { --start: .3; }
-.word[data-stage="3"] { --start: .5; }
+.word[data-stage="1"] { --local: var(--stage-1); }
+.word[data-stage="2"] { --local: var(--stage-2); }
+.word[data-stage="3"] { --local: var(--stage-3); }
 
 .finale {
   display: flex;

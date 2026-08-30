@@ -4,7 +4,11 @@ const collaborators = [
   ["Alexandr", styles.design],
   ["Sabina", styles.product],
   ["Zhaniya", styles.engineering],
-  ["Dias", styles.founder],
+  ["Talant", styles.frontend],
+  ["Dias", styles.qa],
+  ["Sharif", styles.android],
+  ["Ratmir", styles.backend],
+  ["Gibrat", styles.analytics],
 ] as const;
 
 export default function HeroCollaborators() {

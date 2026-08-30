@@ -20,9 +20,9 @@ const dotField = {
 };
 
 const fields = [
-  { x: 0.14, y: 0.22, radius: 0.5, speed: 0.00012, phase: 0.4, intensity: 1 },
-  { x: 0.8, y: 0.72, radius: 0.42, speed: 0.00016, phase: 2.1, intensity: 1.2 },
-  { x: 0.62, y: 0.14, radius: 0.32, speed: 0.0001, phase: 4.3, intensity: 0.9 },
+  { x: 0.14, y: 0.22, radius: 0.5, speed: 0.00052, phase: 0.4, intensity: 1 },
+  { x: 0.8, y: 0.72, radius: 0.42, speed: 0.00056, phase: 2.1, intensity: 1.2 },
+  { x: 0.62, y: 0.14, radius: 0.32, speed: 0.0005, phase: 4.3, intensity: 0.9 },
 ];
 
 export default function Hero() {
@@ -30,7 +30,7 @@ export default function Hero() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const composition = useRef<HTMLDivElement>(null);
   const collaborators = useRef<HTMLDivElement>(null);
-  const pointerLabel = useRef<HTMLDivElement>(null);
+  const pointerLabel = useRef<HTMLSpanElement>(null);
   const text = useRef<Array<HTMLSpanElement | null>>([]);
 
   useEffect(() => {
@@ -218,7 +218,7 @@ export default function Hero() {
         return;
       }
 
-      current += (target - current) * 0.12;
+      current += (target - current) * 0.16;
       pointerCurrentX += (pointerTargetX - pointerCurrentX) * 0.08;
       pointerCurrentY += (pointerTargetY - pointerCurrentY) * 0.08;
       pointerStrength += ((pointerActive ? 1 : 0) - pointerStrength) * 0.08;
@@ -325,12 +325,12 @@ export default function Hero() {
     <section ref={hero} className="relative motion-reduce:h-auto">
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden py-12 motion-reduce:static motion-reduce:h-auto motion-reduce:min-h-[100svh] motion-reduce:flex-col motion-reduce:items-stretch">
         <canvas ref={canvas} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />
-        <div ref={collaborators} className="absolute inset-0 z-[5]">
+        <div ref={collaborators} className="absolute inset-0 z-20">
           <HeroCollaborators />
         </div>
-        <div ref={pointerLabel} className="pointer-events-none absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border border-[rgb(255_255_255_/_0.28)] bg-foreground px-[18px] pt-[6px] pb-[9px] text-[27px] font-semibold leading-none tracking-[0.035em] text-background opacity-0 shadow-[0_2px_6px_rgb(21_0_225_/_0.1)] will-change-transform" aria-hidden="true">
+        <span ref={pointerLabel} className="pointer-events-none absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border border-[rgb(255_255_255_/_0.28)] bg-foreground px-[18px] pt-[6px] pb-[9px] text-[27px] font-semibold leading-none tracking-[0.035em] text-background opacity-0 shadow-[0_2px_6px_rgb(21_0_225_/_0.1)] will-change-transform" aria-hidden="true">
           Guest
-        </div>
+        </span>
         <div ref={composition} className="container relative z-10 w-full -translate-y-[3svh] will-change-transform motion-reduce:py-12">
           <p className="mb-8 text-xs font-medium uppercase tracking-[0.18em] text-accent sm:mb-12">
             ALEXANDR KARBYSHEV

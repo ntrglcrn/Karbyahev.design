@@ -68,14 +68,40 @@
 
 .engineering .label { background: #86eaff; }
 
-.founder {
-  color: #e5c6ff;
-  animation-duration: 15.2s;
-  animation-name: founder;
-  animation-timing-function: cubic-bezier(0.34, 0.03, 0.12, 1);
+.frontend {
+  color: #86eaff;
+  animation: frontend 16.4s cubic-bezier(0.34, 0.03, 0.12, 1) infinite;
 }
 
-.founder .label { background: #e5c6ff; }
+.frontend .label { background: #86eaff; }
+
+.qa {
+  color: #ffadad;
+  animation: qa 15.2s cubic-bezier(0.4, 0.05, 0.16, 1) infinite;
+}
+
+.qa .label { background: #ffadad; }
+
+.android {
+  color: #c8ff00;
+  animation: android 16.1s cubic-bezier(0.32, 0.04, 0.15, 1) infinite;
+}
+
+.android .label { background: #c8ff00; }
+
+.backend {
+  color: #e5c6ff;
+  animation: backend 15.7s cubic-bezier(0.36, 0.07, 0.18, 1) infinite;
+}
+
+.backend .label { background: #e5c6ff; }
+
+.analytics {
+  color: #e5c6ff;
+  animation: analytics 16.7s cubic-bezier(0.3, 0.05, 0.14, 1) infinite;
+}
+
+.analytics .label { background: #e5c6ff; }
 
 @keyframes design {
   0%, 5% { opacity: 0; transform: translate3d(-10vw, 18vh, 0); }
@@ -104,13 +130,44 @@
   86%, 100% { opacity: 0; transform: translate3d(55vw, 106vh, 0); }
 }
 
-@keyframes founder {
-  0%, 63% { opacity: 0; transform: translate3d(-12vw, 69vh, 0); }
-  67% { opacity: 1; }
-  76%, 82% { opacity: 1; transform: translate3d(60vw, 43vh, 0); }
-  86%, 88% { opacity: 1; transform: translate3d(64vw, 39vh, 0); }
-  96% { opacity: 1; transform: translate3d(90vw, 20vh, 0); }
-  100% { opacity: 0; transform: translate3d(108vw, 14vh, 0); }
+@keyframes frontend {
+  0%, 8% { opacity: 0; transform: translate3d(-12vw, 74vh, 0); }
+  12% { opacity: 1; }
+  25%, 31% { opacity: 1; transform: translate3d(36vw, 58vh, 0); }
+  39% { opacity: 1; transform: translate3d(71vw, 36vh, 0); }
+  45%, 100% { opacity: 0; transform: translate3d(106vw, 24vh, 0); }
+}
+
+@keyframes qa {
+  0%, 25% { opacity: 0; transform: translate3d(104vw, 18vh, 0); }
+  29% { opacity: 1; }
+  41%, 47% { opacity: 1; transform: translate3d(54vw, 32vh, 0); }
+  56% { opacity: 1; transform: translate3d(24vw, 52vh, 0); }
+  62%, 100% { opacity: 0; transform: translate3d(-12vw, 66vh, 0); }
+}
+
+@keyframes android {
+  0%, 36% { opacity: 0; transform: translate3d(-10vw, 46vh, 0); }
+  40% { opacity: 1; }
+  52%, 58% { opacity: 1; transform: translate3d(42vw, 39vh, 0); }
+  67% { opacity: 1; transform: translate3d(78vw, 55vh, 0); }
+  73%, 100% { opacity: 0; transform: translate3d(106vw, 72vh, 0); }
+}
+
+@keyframes backend {
+  0%, 50% { opacity: 0; transform: translate3d(72vw, 106vh, 0); }
+  54% { opacity: 1; }
+  65%, 71% { opacity: 1; transform: translate3d(58vw, 74vh, 0); }
+  80% { opacity: 1; transform: translate3d(31vw, 62vh, 0); }
+  86%, 100% { opacity: 0; transform: translate3d(-12vw, 48vh, 0); }
+}
+
+@keyframes analytics {
+  0%, 67% { opacity: 0; transform: translate3d(-12vw, 28vh, 0); }
+  71% { opacity: 1; }
+  81%, 87% { opacity: 1; transform: translate3d(48vw, 21vh, 0); }
+  94% { opacity: 1; transform: translate3d(82vw, 34vh, 0); }
+  100% { opacity: 0; transform: translate3d(106vw, 44vh, 0); }
 }
 
 @media (max-width: 89.999rem) {
@@ -119,7 +176,7 @@
 
 @media (max-width: 63.999rem) and (min-width: 40rem) {
   .stage { transform: scale(0.7); }
-  .founder { display: none; }
+  .qa, .android, .backend, .analytics { display: none; }
 }
 
 @keyframes mobileDesign {
@@ -151,7 +208,7 @@
   .design { animation-name: mobileDesign; animation-duration: 14s; }
   .product { animation-name: mobileProduct; animation-duration: 14s; }
   .engineering { animation-name: mobileEngineering; animation-duration: 14s; }
-  .founder { display: none; }
+  .frontend, .qa, .android, .backend, .analytics { display: none; }
 }
 
 @media (max-width: 23.374rem) {

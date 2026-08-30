@@ -5,6 +5,13 @@ import HeroCollaborators from "./hero-collaborators";
 import styles from "./final-scene.module.css";
 
 const stages = ["DESIGN", "PRODUCT", "BUILD", "SHIP"];
+const stageStarts = [-.1, .1, .3, .5];
+
+const pauseAtCenter = (progress: number) => {
+  if (progress < .42) return .5 * (1 - (1 - progress / .42) ** 3);
+  if (progress <= .58) return .5;
+  return .5 + .5 * ((progress - .58) / .42) ** 3;
+};
 
 export default function FinalScene() {
   const scene = useRef<HTMLElement>(null);
@@ -23,6 +30,10 @@ export default function FinalScene() {
       current += (target - current) * .1;
       if (Math.abs(target - current) < .0001) current = target;
       element.style.setProperty("--progress", current.toFixed(4));
+      stageStarts.forEach((start, index) => {
+        const local = Math.min(Math.max((current - start) / .2, 0), 1);
+        element.style.setProperty(`--stage-${index}`, pauseAtCenter(local).toFixed(4));
+      });
       element.dataset.final = String(current > .77);
       frame = current === target ? 0 : requestAnimationFrame(render);
     };
