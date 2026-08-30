@@ -9,6 +9,7 @@
 - A primitive records an available value.
 - A semantic token assigns that value a reusable role.
 - Components consume semantic CSS variables, Tailwind utilities, or generated `type-*` classes.
+- Primitives are private implementation details. Application UI must never consume primitive variables or expose primitives through Tailwind; only design-system infrastructure may reference them directly.
 - Semantic leaves must reference primitives; raw semantic values fail validation.
 
 ## Dimensions
@@ -23,7 +24,7 @@ A responsive role stays one semantic token with `default` and `responsive` mappi
 
 ## Commands
 
-- `npm run tokens:validate` validates structure, references, duplicates, and even dimensions.
+- `npm run tokens:validate` validates structure, references, duplicates, even dimensions, the Tailwind-facing API, and frontend primitive bypasses in `src` styling and script files (excluding generated `src/styles/tokens.css`).
 - `npm run tokens:build` deterministically writes `src/styles/tokens.css`.
 - `npm run tokens:check` validates tokens and fails when generated CSS is stale.
 - `npm run build` runs `tokens:check` before the Next.js production build.

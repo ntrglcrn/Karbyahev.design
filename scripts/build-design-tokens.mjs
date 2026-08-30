@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -7,6 +7,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourcePath = path.join(root, "design-system/tokens.json");
 const outputPath = path.join(root, "src/styles/tokens.css");
 const referencePattern = /^\{primitive\.([A-Za-z0-9.]+)\}$/;
+const primitiveVariablePattern = /--primitive-[a-z0-9-]+/gi;
+const frontendExtensions = new Set([".css", ".js", ".jsx", ".mjs", ".cjs", ".sass", ".scss", ".less", ".ts", ".tsx"]);
 const typographyProperties = new Set(["fontFamily", "fontSize", "fontWeight", "letterSpacing", "lineHeight"]);
 
 const tokens = JSON.parse(await readFile(sourcePath, "utf8"));
@@ -117,6 +119,33 @@ function validate() {
   }
 }
 
+async function validateFrontend(directory = path.join(root, "src"), violations = []) {
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const filePath = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      await validateFrontend(filePath, violations);
+    } else if (filePath !== outputPath && frontendExtensions.has(path.extname(entry.name))) {
+      const lines = (await readFile(filePath, "utf8")).split("\n");
+      for (const [index, line] of lines.entries()) {
+        for (const primitive of new Set(line.match(primitiveVariablePattern) ?? [])) {
+          violations.push(`${path.relative(root, filePath)}:${index + 1}  ${primitive}`);
+        }
+      }
+    }
+  }
+  if (directory === path.join(root, "src") && violations.length) {
+    const shown = violations.slice(0, 20);
+    const remaining = violations.length - shown.length;
+    throw new Error([
+      "Design token architecture violation",
+      "Direct primitive usage in application UI:",
+      ...shown,
+      ...(remaining ? [`...and ${remaining} more`] : []),
+      "Components must consume semantic tokens. Use an existing semantic token or add a justified semantic mapping in design-system/tokens.json.",
+    ].join("\n"));
+  }
+}
+
 function kebab(value) {
   return value.replace(/([a-z0-9])([A-Z])/g, "$1-$2").replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase();
 }
@@ -198,8 +227,8 @@ function buildCss() {
     ["spacing-stack-lg", "--semantic-spacing-stack-large"],
     ["radius-surface", "--semantic-radius-surface"],
     ["radius-control", "--semantic-radius-control"],
-    ["font-display", "--primitive-font-family-display"],
-    ["font-sans", "--primitive-font-family-sans"],
+    ["font-display", "--semantic-typography-display-hero-default-font-family"],
+    ["font-sans", "--semantic-typography-body-default-default-font-family"],
   ].map(([name, target]) => `  --${name}: var(${target});`);
   theme.push(`  --breakpoint-ultra-wide: ${tokens.primitive.breakpoint.ultraWide};`);
 
@@ -234,7 +263,12 @@ function buildCss() {
 }
 
 validate();
+await validateFrontend();
 const css = buildCss();
+const theme = css.match(/@theme inline \{([\s\S]*?)\n\}/)?.[1] ?? "";
+if (/--primitive-[a-z0-9-]+/i.test(theme)) {
+  throw new Error("Design token architecture violation: @theme must expose semantic tokens, not primitives");
+}
 const mode = process.argv[2];
 
 if (mode === "--validate") {

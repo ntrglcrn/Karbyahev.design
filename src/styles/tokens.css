@@ -260,8 +260,8 @@
   --spacing-stack-lg: var(--semantic-spacing-stack-large);
   --radius-surface: var(--semantic-radius-surface);
   --radius-control: var(--semantic-radius-control);
-  --font-display: var(--primitive-font-family-display);
-  --font-sans: var(--primitive-font-family-sans);
+  --font-display: var(--semantic-typography-display-hero-default-font-family);
+  --font-sans: var(--semantic-typography-body-default-default-font-family);
   --breakpoint-ultra-wide: 192rem;
 }
 .type-body-default {
