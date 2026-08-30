@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design System"
+  short_description: "Protect the portfolio token architecture"
+  default_prompt: "Use $design-system to keep this UI change aligned with the repository token architecture."

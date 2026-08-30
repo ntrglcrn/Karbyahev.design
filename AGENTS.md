@@ -10,6 +10,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Project skill routing
 
+- Any new or changed user-facing UI, visual styling, responsive work, design QA,
+  or reusable CSS/Tailwind value: `$design-system`.
 - User-facing visual direction, narrative, or product positioning: `$portfolio-vision`.
 - Review or critique of implemented portfolio work: `$design-crit`.
 - Case-study pages and project metadata: `$case-study`.
