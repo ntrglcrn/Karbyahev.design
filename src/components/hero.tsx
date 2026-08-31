@@ -218,7 +218,7 @@ export default function Hero() {
         return;
       }
 
-      current += (target - current) * 0.16;
+      current += (target - current) * 0.2;
       pointerCurrentX += (pointerTargetX - pointerCurrentX) * 0.08;
       pointerCurrentY += (pointerTargetY - pointerCurrentY) * 0.08;
       pointerStrength += ((pointerActive ? 1 : 0) - pointerStrength) * 0.08;
